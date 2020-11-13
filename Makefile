@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/06/29 16:44:47 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/11/13 10:57:27 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME	= minishell
 SRCDIR	=	./src
 INCDIR	=	./includes
 OBJDIR	=	./obj
+LIBFT 	= libft
 LIBFTDIR = ./libft/
 
 SRC		=	main.c \
@@ -45,7 +46,7 @@ all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
-	cd libft ; make;
+	@make -s -j -C $(LIBFT)
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
@@ -54,10 +55,11 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJDIR)
-	cd libft ; make fclean;
+	@make clean -C $(LIBFT)
 
 fclean: clean
 	rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
 
