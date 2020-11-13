@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:35:31 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 17:36:47 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,25 @@ void	ft_putquote(char **str, int len)
 	}
 }
 
+char	**ft_addstr(char **str, char *new)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_doublestrlen(str) + 1))))
+		return (0);
+	while (str[i] != NULL)
+	{
+		tmp[i] = ft_strdup(str[i]);
+		i++;
+	}
+	tmp[i] = ft_strdup(new);
+	i += 1;
+	tmp[i] = NULL;
+	return (tmp);
+}
+/*
 char	**ft_addstr(char **path, int number_path, char *str)
 {
 	char	**tmp;
@@ -54,9 +73,11 @@ char	**ft_addstr(char **path, int number_path, char *str)
 		i++;
 	}
 	tmp[number_path] = ft_strdup(str);
+	i = number_path + 1;
+	tmp[i] = NULL;
 	clean_mem(number_path, NULL, path);
 	return (tmp);
-}
+}*/
 
 int			ft_searchname(char *word, t_com * comm)
 {
@@ -104,7 +125,7 @@ void		ft_export(t_com *comm)
 				}
 				if (flag != 0)
 				{
-					comm->path = ft_addstr(comm->path, ft_doublestrlen(comm->path), comm->words[i]);
+					ft_addstr(comm->path, comm->words[i]);
 				//	comm->number_path++;
 				}
 			}

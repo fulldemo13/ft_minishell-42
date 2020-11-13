@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:49:51 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:03:59 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	launch(t_com *comm)
 {
 	int		status;
-	int		number;
 	char	*line;
 	int 	i;
-	char	**tmp;
 
 	status = -2;
 	while (status == -2)
@@ -39,13 +37,14 @@ void	launch(t_com *comm)
 			i = 0;
 			while (comm->commands[i] && status == -2)				//run commands 1 by 1
 			{
-				comm->number_words = divider(comm->commands[i]);	
-				number = comm->number_words;
+				comm->number_words = divider(comm->commands[i]);
+				
+				comm->words = get_commands(comm->commands[i]);		//take words from commands using spaces
+				
+				comm->words = parse_redirection(comm);				//parse redirection simbols
 
-				comm->words = get_commands(comm->commands[i]);		//take words from commands
-				tmp = parse_redirection(comm);
-				clean_mem(number, NULL, comm->words);
-				comm->words = tmp;
+				ft_showdouble(comm->words);
+
 				check_quotes(comm);
 				get_fd(comm);
 				status = compare(comm);

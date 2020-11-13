@@ -6,34 +6,78 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 13:57:00 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/02 16:06:28 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:03:04 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**parse_redirection(t_com *comm)
+int 	ft_count_redirection(t_com *comm)
 {
 	int		i;
 	int		j;
 	int		flag;
-	char	**tmp;
-	char 	*aux;
-	char	*s;
-	int		large;
+	int		res;
 
 	i = 0;
-	large = 0;
 	flag = 0;
-	aux = ft_strdup("");
-	if (!(tmp = (char **)malloc(sizeof(char*))))
-		return (NULL);
-	while (comm->number_words > i)
+	res = 0;
+	while (comm->words[i] != NULL)
 	{
 		if (comm->words[i][0] == '\'' || comm->words[i][0] == '\"')
 		{
-			tmp = ft_addstr(tmp, large, comm->words[i]);
-			large++;
+			res++;
+		}
+		else
+		{
+			j = 0;
+			while (comm->words[i][j] != '\0')
+			{
+				if (!is_redirection(comm->words[i][j]) && comm->words[i][j] != '\0')
+				{
+					while (!is_redirection(comm->words[i][j]) && comm->words[i][j] != '\0')
+					{
+						j++;
+					}
+					res++;
+				}
+				else if (is_redirection(comm->words[i][j]))
+				{
+					while (is_redirection(comm->words[i][j]) && comm->words[i][j] != '\0')
+					{
+						j++;
+					}
+					res++;
+				}
+			}
+		}
+		i++;
+	}
+	return (res);
+}
+
+char	**parse_redirection(t_com *comm)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		flag;
+	char	**tmp;
+	char 	*aux;
+	char	*s;
+	
+	i = 0;
+	k = 0;
+	flag = 0;
+	aux = ft_strdup("");
+	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_count_redirection(comm) + 1))))
+		return (NULL);
+	while (comm->words[i] != NULL)
+	{
+		if (comm->words[i][0] == '\'' || comm->words[i][0] == '\"')
+		{
+			tmp[k] = ft_strdup(comm->words[i]);
+			k++;
 		}
 		else
 		{
@@ -49,12 +93,12 @@ char	**parse_redirection(t_com *comm)
 						aux = s;
 						j++;
 					}
-					tmp = ft_addstr(tmp, large, aux);
+					tmp[k] = ft_strdup(aux);
 					free(aux);
 					aux = ft_strdup("");
-					large++;
+					k++;
 				}
-				if (is_redirection(comm->words[i][j]))
+				else if (is_redirection(comm->words[i][j]))
 				{
 					while (is_redirection(comm->words[i][j]) && comm->words[i][j] != '\0')
 					{
@@ -63,16 +107,17 @@ char	**parse_redirection(t_com *comm)
 						aux = s;
 						j++;
 					}
-					tmp = ft_addstr(tmp, large, aux);
+					tmp[k] = ft_strdup(aux);
+					k++;
 					free(aux);
 					aux = ft_strdup("");
-					large++;
 				}
 			}
 		}
 		i++;
 	}
+	tmp[k] = NULL;
 	free(aux);
-	comm->number_words = large;
+	clean_mem2(comm->words);
 	return (tmp);
 }

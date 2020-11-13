@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 08:17:03 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/02/29 09:59:04 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:09:28 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ char	**get_commands(char *line)
 	let = 0;
 	flag = 0;
 	words = divider(line);
-	if (!(commands = (char **)malloc(sizeof(char *) * (words))))
+	if (!(commands = (char **)malloc(sizeof(char *) * (words + 1))))
 		return (NULL);
 	if (!malloc_commands(line, commands, let, flag))
 		return (NULL);

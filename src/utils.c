@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:45:51 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 17:32:57 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ int		is_redirection(char c)
 	else if (c == '|')
 		return (3);
 	return (0);
+}
+
+void	clean_mem2(char **commands)
+{
+	int i;
+
+	i = 0;
+	while (commands[i] != NULL)
+	{
+		free(commands[i]);
+		//commands[i][0] = '\0';
+		i++;
+	}
+	free(commands);
+	//commands = NULL; 
 }
 
 void	clean_mem(int len, char *line, char **commands)
@@ -154,4 +169,5 @@ void	ft_showdouble(char **str)
 		printf("[%s]\n", str[i]);
 		i++;
 	}
+	printf("[END]\n");
 }
