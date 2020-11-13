@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/11/13 10:57:27 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/11/13 11:09:08 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LIBFTDIR = ./libft/
 
 SRC		=	main.c \
 			minishell.c \
+			syntax_errors.c \
 			utils.c \
 			get_next_line.c \
 			get_commands.c \

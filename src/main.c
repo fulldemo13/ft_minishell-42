@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/06/30 19:39:26 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:14:28 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,8 @@ void	launch(t_com *comm)
 		write(1, "\x1b[32mminishell\\> \x1b[0m", 22);
 		line = NULL;
 		get_next_line(&line);
-		if(!ft_quotes(line))
+		if(ft_check_syntax(line))
 		{
-			write(1, "minishell: syntax error multiline\n", 34);
-			exit_ret = 128;
-			free(line);
-		}
-		else if((number = ft_semicolon(line)) == -1)
-		{
-			write(1, "minishell: syntax error near unexpected token ';'\n", 50);
 			exit_ret = 128;
 			free(line);
 		}
