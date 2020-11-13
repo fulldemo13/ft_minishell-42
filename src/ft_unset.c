@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/05 17:51:37 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:37:54 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_unset(t_com *comm)
 			pos = ft_searchpath(comm, comm->words[i]);
 			if (pos != -1)
 			{
-				comm->path = ft_removestr(comm->path, pos, comm->number_path);
-				comm->number_path--;
+				comm->path = ft_removestr(comm->path, pos, ft_doublestrlen(comm->path));
+//				comm->number_path--;
 			}
 		}
 		i++;

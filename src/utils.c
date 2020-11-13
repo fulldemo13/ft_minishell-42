@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/06 17:46:44 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:45:51 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	clean_mem(int len, char *line, char **commands)
 		free(line);
 }
 
-void	ft_putstr(char **str, int len)
+void	ft_putstr(char **str)
 {
 	int	i;
 	
 	i = 0;
-	while (len > i)
+	while (str[i] != NULL)
 	{
 		write(global_fd, str[i], ft_strlen(str[i]));
 		write(global_fd, "\n", 1);
@@ -65,9 +65,9 @@ t_com	*ft_comm_initialize(int argc, char **argv, char ** env, t_com *comm)
 {
 	(void)argc;
 	(void)argv;
-	comm->number_com = 0;
-	comm->number_path = ft_doublestrlen(env);
-	comm->path = ft_doublestrdup(env, comm->number_path);
+//	comm->number_com = 0;
+//	comm->number_path = ft_doublestrlen(env);
+	comm->path = ft_doublestrdup(env);
 	comm->bin_path = ft_getbinpath(comm);
 	exit_ret = 0;
 	return (comm);
@@ -79,7 +79,7 @@ int		ft_searchpath(t_com *comm, char *words)
 	int	j;
 
 	i = 0;
-	while (comm->number_path > i)
+	while (comm->path[i] != NULL)
 	{
 		j = 0;
 		while (comm->path[i][j] != '\0')
@@ -144,4 +144,14 @@ char	*ft_strndup(const char *s1, size_t len)
 	}
 	r[i] = '\0';
 	return (r);
+}
+
+void	ft_showdouble(char **str)
+{
+	int i = 0;
+	while (str[i] != NULL)
+	{
+		printf("[%s]\n", str[i]);
+		i++;
+	}
 }

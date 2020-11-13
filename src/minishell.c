@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:08:47 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:29:21 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_path(t_com * comm)
 
 		j = 0;
 		tmp_words = (char **)malloc(sizeof(char *) * (comm->number_words + 1));
-		tmp_env = (char **)malloc(sizeof(char *) * (comm->number_path + 1));
+		tmp_env = (char **)malloc(sizeof(char *) * (ft_doublestrlen(comm->path) + 1));
 		while (comm->number_words > j)
 		{
 			tmp_words[j] = ft_strdup(comm->words[j]);
@@ -94,7 +94,7 @@ void	ft_path(t_com * comm)
 		}
 		tmp_words[j] = NULL;
 		j  = 0;
-		while (comm->number_path > j)
+		while (comm->path[j] != NULL)
 		{
 			tmp_env[j] = ft_strdup(comm->path[j]);
 			j++;
@@ -106,7 +106,7 @@ void	ft_path(t_com * comm)
 		else
 			ft_bin_path(comm, tmp_env, tmp_words);
 		clean_mem((comm->number_words), NULL, tmp_words);
-		clean_mem((comm->number_path), NULL, tmp_env);
+		clean_mem(ft_doublestrlen(comm->path), NULL, tmp_env);
 		write(1, "\n", 1);
 }
 

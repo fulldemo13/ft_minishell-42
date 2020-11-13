@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/06 17:16:14 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:35:31 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void		ft_export(t_com *comm)
 				}
 				if (flag != 0)
 				{
-					comm->path = ft_addstr(comm->path, comm->number_path, comm->words[i]);
-					comm->number_path++;
+					comm->path = ft_addstr(comm->path, ft_doublestrlen(comm->path), comm->words[i]);
+				//	comm->number_path++;
 				}
 			}
 			else
@@ -117,7 +117,7 @@ void		ft_export(t_com *comm)
 		}
 	}
 	else
-		ft_putquote(comm->path, comm->number_path);
+		ft_putquote(comm->path, ft_doublestrlen(comm->path));
 	if (exit_ret == -1)
 		exit_ret = 1;
 	else

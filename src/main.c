@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:14:28 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:49:51 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,19 @@ void	launch(t_com *comm)
 		}
 		else
 		{	
-			comm->commands = ft_split(line, ';');
-			comm->number_com = ft_doublestrlen(comm->commands);
-//	printf("----->comandos:%d\n", comm->number_com);
+			comm->commands = ft_split(line, ';');					//take commands
 			
 			i = 0;
-			while (comm->number_com > i && status == -2)
+			while (comm->commands[i] && status == -2)				//run commands 1 by 1
 			{
-				comm->number_words = divider(comm->commands[i]);
+				comm->number_words = divider(comm->commands[i]);	
 				number = comm->number_words;
-//	printf("----->words:%d\n", comm->number_words);
-				comm->words = get_commands(comm->commands[i]);
+
+				comm->words = get_commands(comm->commands[i]);		//take words from commands
 				tmp = parse_redirection(comm);
 				clean_mem(number, NULL, comm->words);
 				comm->words = tmp;
 				check_quotes(comm);
-				
-//	printf("----->[%s]\n", comm->words[0]);
-/////////////Printear commands////////////////////
-/*
-				number = 0;
-				while (comm->number_words > number)
-				{
-					printf("[%s]\n", comm->words[number]);
-					number++;
-				}
-*/
-/////////////////////////////////////////////////
-
-
 				get_fd(comm);
 				status = compare(comm);
 				if (comm->number_words > 0)
@@ -71,8 +55,9 @@ void	launch(t_com *comm)
 					close(global_fd);	
 				i++;
 			}
-			if (comm->number_com > 0)
+		/*	if (comm->number_com > 0)
 				clean_mem(comm->number_com, line, comm->commands);
+		*/
 		}
 	}
 	if (status == -1)
@@ -97,7 +82,7 @@ int		main(int argc, char **argv, char **env)
 	}
 	while ((wpid = wait(&status)) > 0)
 		NULL;
-	clean_mem(comm->number_path, NULL, comm->path);
+	clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
 	clean_mem(comm->number_bin_path, NULL, comm->bin_path);
 	free(comm);
 

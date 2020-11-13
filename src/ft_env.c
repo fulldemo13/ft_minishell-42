@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 09:22:03 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/05 17:50:35 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:30:57 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_env(t_com *comm)
 	}
 	else
 	{
-		ft_putstr(comm->path, comm->number_path);
+		ft_putstr(comm->path);
 		exit_ret = 0;
 	}
 }
