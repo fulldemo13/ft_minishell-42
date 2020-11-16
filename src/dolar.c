@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:01:50 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/07 09:44:48 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/16 18:27:01 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ char	*check_dollar(t_com *comm, int i, int j, char *tmp)
 	return (tmp);
 }
 
-char	*check_home(char *word, t_com *comm)
+char	*check_home(char *word, t_com *comm)		//word es el string que vamos a buscar $
 {
 	int		pos;
 	char	*tmp;
 	char	*aux;
 
-	pos = ft_searchpath(comm, "HOME");
+	pos = ft_searchpath(comm, "HOME");				//pos es la posición en que se encuentra el sting HOME=
 	if (!ft_strcmp(word, "~"))
 	{
 		free(word);
-		word = ft_strdup(comm->path[pos] + 5);
+		word = ft_strdup(comm->path[pos] + 5);		//cambiamos el guion por el path
 	}
 	else if (!ft_strncmp(word, "~/", 2))
 	{
@@ -64,7 +64,7 @@ char	*check_home(char *word, t_com *comm)
 		aux = word + 1;
 		free(word);
 		word = ft_strjoin(tmp, aux);
-		free(tmp);
+		free(tmp);									//concatenamos el guión  y la dirección a la que ir
 	}
 	return (word);
 }
@@ -78,11 +78,16 @@ void 	check_quotes(t_com *comm)
 	char	*aux;
 
 	i = 0;
-	while (comm->number_words > i)
+	while (comm->words[i] != NULL)
 	{
 		j = 0;
 		tmp = ft_strdup("");
-		comm->words[i] = check_home(comm->words[i], comm);
+	//	printf("{%s}\n", comm->words[i]);
+		
+		comm->words[i] = check_home(comm->words[i], comm);		//Mira si es alguna dirección o no
+		
+	//	printf("{%s}\n", comm->words[i]);
+
 		while (comm->words[i][j] != '\0')
 		{
 			if (comm->words[i][j] == '\'')

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 13:57:00 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 18:03:04 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/16 18:36:39 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int 	ft_count_redirection(t_com *comm)
 		}
 		i++;
 	}
+	printf("redirections:%i\n", res);
 	return (res);
 }
 

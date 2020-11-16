@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 08:17:03 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 13:09:28 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/16 18:36:39 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		divider(char *line)
 			flag = 0;
 		i++;
 	}
+	printf("spaces:%i\n", words);
 	return (words);
 }
 
