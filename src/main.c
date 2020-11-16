@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 18:03:59 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:14:21 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	launch(t_com *comm)
 				
 				comm->words = parse_redirection(comm);				//parse redirection simbols
 
+				check_quotes(comm);
 				ft_showdouble(comm->words);
 
-				check_quotes(comm);
 				get_fd(comm);
 				status = compare(comm);
 				if (comm->number_words > 0)
@@ -85,7 +85,7 @@ int		main(int argc, char **argv, char **env)
 	clean_mem(comm->number_bin_path, NULL, comm->bin_path);
 	free(comm);
 
-//	system("leaks minishell");
+	system("leaks -q minishell");
 	
 	return (WEXITSTATUS(status));
 }
