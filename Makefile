@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/11/17 10:51:46 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/11/17 11:01:04 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC		=	main.c \
 			minishell.c \
 			syntax_errors.c \
 			divisor.c \
+			dolar.c \
 			utils.c \
 			get_next_line.c \
 			ft_echo.c \
@@ -32,7 +33,6 @@ SRC		=	main.c \
 			ft_cd.c \
 			ft_pwd.c \
 			ft_exit.c \
-			dolar.c \
 			fd_redirections.c \
 			bin_path.c \
 

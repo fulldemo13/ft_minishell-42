@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 17:32:57 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/17 11:22:27 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,28 +86,6 @@ t_com	*ft_comm_initialize(int argc, char **argv, char ** env, t_com *comm)
 	comm->bin_path = ft_getbinpath(comm);
 	exit_ret = 0;
 	return (comm);
-}
-
-int		ft_searchpath(t_com *comm, char *words)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (comm->path[i] != NULL)
-	{
-		j = 0;
-		while (comm->path[i][j] != '\0')
-		{
-			if (comm->path[i][j] == '=' && words[j] == '\0')
-				return(i);
-			else if (comm->path[i][j] != words[j])
-				break ;
-			j++;
-		}
-		i++;
-	}
-	return (-1);
 }
 
 char	*ft_strnjoin(char *s1, char *s2, size_t len)

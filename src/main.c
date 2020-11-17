@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 10:50:12 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/17 11:32:35 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	launch(t_com *comm)
 						exit(status);
 				ft_malloc_words(comm->commands[i], comm->words);
 				ft_fill_words(comm->commands[i], comm->words);
-				ft_showdouble(comm->words);
 
+				check_quotes(comm);
 
-			//	check_quotes(comm);
-
-			//	get_fd(comm);
+				//ft_showdouble(comm->words);
+			
+				get_fd(comm);
 				status = compare(comm);
 				if (ft_doublestrlen(comm->words) > 0)
 					clean_mem2(comm->words);
@@ -81,8 +81,8 @@ int		main(int argc, char **argv, char **env)
 	}
 	while ((wpid = wait(&status)) > 0)
 		NULL;
-	clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
-	clean_mem(comm->number_bin_path, NULL, comm->bin_path);
+	clean_mem2(comm->path);
+	clean_mem2(comm->bin_path);
 	free(comm);
 
 	system("leaks -q minishell");

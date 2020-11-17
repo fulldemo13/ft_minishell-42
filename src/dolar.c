@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:01:50 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/16 18:27:01 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:59:22 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,7 @@ void 	check_quotes(t_com *comm)
 	{
 		j = 0;
 		tmp = ft_strdup("");
-	//	printf("{%s}\n", comm->words[i]);
-		
 		comm->words[i] = check_home(comm->words[i], comm);		//Mira si es alguna dirección o no
-		
-	//	printf("{%s}\n", comm->words[i]);
-
 		while (comm->words[i][j] != '\0')
 		{
 			if (comm->words[i][j] == '\'')

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 10:47:58 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/17 12:22:08 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,33 @@ void	ft_notfound(t_com *comm)
 		exit_ret = 127;
 }
 
-void	ft_bin_path(t_com *comm, char **env, char **tmp)
+void	ft_bin_path(t_com *comm)
 {
 	pid_t	pod;
 	int	res;
 	int i;
 	int status;
+	char *tmp;
 
 	i = 0;
 	res = 0;
-	clean_mem(comm->number_bin_path, NULL, comm->bin_path);
+	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
-	if (!ft_strchr(comm->words[0], '/'))
-		tmp[0] = ft_strjoin(comm->bin_path[i], comm->words[0]);
-	if (!(pod = fork()))
+/*	if (!ft_strchr(comm->words[0], '/'))
+		comm->words[0] = ft_strjoin(comm->bin_path[i], comm->words[0]);
+*/	if (!(pod = fork()))
 	{
 		dup2(global_fd, 1);
-		while ((res = execve(tmp[0], tmp, env) == -1) && comm->number_bin_path > i)
+		tmp = ft_strjoin(comm->bin_path[i], comm->words[0]);
+	/*	while ((res = execve(tmp, comm->words, comm->path) == -1) && comm->bin_path[i] != NULL)
 		{
 			i++;
-			if (!ft_strchr(comm->words[0], '/'))
-				tmp[0] = ft_strjoin(comm->bin_path[i], comm->words[0]);
-			if (i == comm->number_bin_path - 1)	
-				ft_notfound(comm);
+			free(tmp);
+			tmp = ft_strjoin(comm->bin_path[i], comm->words[0]);
 		}
+		free(tmp);
+	*/	if ((res = execve(comm->words[0], comm->words, comm->path)) == -1)
+			ft_notfound(comm);
 		exit(exit_ret);
 	}
 	wait(&status);
@@ -56,7 +59,7 @@ void 	*ft_kill(pid_t pod)
 	return (NULL);
 }
 
-void	ft_exec_path(t_com *comm, char **tmp_words, char **tmp_env)
+void	ft_exec_path(t_com *comm)
 {
 	pid_t	pod;
 	int status;
@@ -66,7 +69,7 @@ void	ft_exec_path(t_com *comm, char **tmp_words, char **tmp_env)
 	{
 		signal (SIGINT, ft_kill(pod));
 		dup2(global_fd, 1);
-		res = execve(tmp_words[0], tmp_words, tmp_env);
+		res = execve(comm->words[0], comm->words, comm->path);
 		if (res == -1)
 			ft_notfound(comm);
 		exit(exit_ret);
@@ -80,12 +83,12 @@ void	ft_exec_path(t_com *comm, char **tmp_words, char **tmp_env)
 
 void	ft_path(t_com * comm)
 {
-		char	**tmp_words;
-		char	**tmp_env;
+	//	char	**tmp_words;
+	//	char	**tmp_env;
 		int		j;
 
 		j = 0;
-		tmp_words = (char **)malloc(sizeof(char *) * (comm->number_words + 1));
+	/*	tmp_words = (char **)malloc(sizeof(char *) * (comm->number_words + 1));
 		tmp_env = (char **)malloc(sizeof(char *) * (ft_doublestrlen(comm->path) + 1));
 		while (comm->number_words > j)
 		{
@@ -100,14 +103,14 @@ void	ft_path(t_com * comm)
 			j++;
 		}
 		tmp_env[j] = NULL;
-		
-		if (!ft_strncmp(tmp_words[0], "./", 2))
-			ft_exec_path(comm, tmp_words, tmp_env);
+	*/	
+		if (!ft_strncmp(comm->words[0], "./", 2))
+			ft_exec_path(comm);
 		else
-			ft_bin_path(comm, tmp_env, tmp_words);
-		clean_mem((comm->number_words), NULL, tmp_words);
-		clean_mem(ft_doublestrlen(comm->path), NULL, tmp_env);
-		write(1, "\n", 1);
+			ft_bin_path(comm);
+	/*	clean_mem((comm->number_words), NULL, tmp_words);
+		clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
+		write(1, "\n", 1);*/
 }
 
 int		compare(t_com *comm)
@@ -128,8 +131,8 @@ int		compare(t_com *comm)
 	else if (!ft_strcmp(comm->words[0], "export"))
 		ft_export(comm);
 	else if (!ft_strcmp(comm->words[0], "unset"))
-		ft_unset(comm);
+		ft_unset(comm);*/
 	else
-		ft_path(comm);*/
+		ft_path(comm);
 	return (-2);
 }
