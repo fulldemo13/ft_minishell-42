@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/11/13 11:09:08 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/11/17 10:51:46 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ LIBFTDIR = ./libft/
 SRC		=	main.c \
 			minishell.c \
 			syntax_errors.c \
+			divisor.c \
 			utils.c \
 			get_next_line.c \
-			get_commands.c \
 			ft_echo.c \
 			ft_doublestrdup.c \
 			ft_env.c \
@@ -33,7 +33,6 @@ SRC		=	main.c \
 			ft_pwd.c \
 			ft_exit.c \
 			dolar.c \
-			parse_redirection.c \
 			fd_redirections.c \
 			bin_path.c \
 
@@ -47,7 +46,7 @@ all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
-	@make -s -j -C $(LIBFT)
+	cd libft ; make;
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
@@ -56,11 +55,11 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJDIR)
-	@make clean -C $(LIBFT)
+	cd libft ; make clean;
 
 fclean: clean
 	rm -f $(NAME)
-	@make fclean -C $(LIBFT)
+	cd libft ; make fclean;
 
 re: fclean all
 
