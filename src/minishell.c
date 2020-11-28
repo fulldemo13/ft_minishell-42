@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 12:22:08 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/27 09:56:19 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_notfound(t_com *comm)
 		write(1, "minishell: ", 12);
 		write(1, comm->words[0], ft_strlen(comm->words[0]));
 		write(1, ": command not found\n", 20);
-		exit_ret = 127;
+		//exit_ret = 127;
 }
-
+/*
 void	ft_bin_path(t_com *comm)
 {
 	pid_t	pod;
@@ -32,27 +32,27 @@ void	ft_bin_path(t_com *comm)
 	res = 0;
 	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
-/*	if (!ft_strchr(comm->words[0], '/'))
-		comm->words[0] = ft_strjoin(comm->bin_path[i], comm->words[0]);
-*/	if (!(pod = fork()))
+//	if (!ft_strchr(comm->words[0], '/'))
+//		comm->words[0] = ft_strjoin(comm->bin_path[i], comm->words[0]);
+	if (!(pod = fork()))
 	{
 		dup2(global_fd, 1);
 		tmp = ft_strjoin(comm->bin_path[i], comm->words[0]);
-	/*	while ((res = execve(tmp, comm->words, comm->path) == -1) && comm->bin_path[i] != NULL)
+		while ((res = execve(tmp, comm->words, comm->path) == -1) || comm->bin_path[i] != NULL)
 		{
 			i++;
 			free(tmp);
 			tmp = ft_strjoin(comm->bin_path[i], comm->words[0]);
 		}
 		free(tmp);
-	*/	if ((res = execve(comm->words[0], comm->words, comm->path)) == -1)
+		if ((res = execve(comm->words[0], comm->words, comm->path)) == -1)
 			ft_notfound(comm);
 		exit(exit_ret);
 	}
 	wait(&status);
 	exit_ret = WEXITSTATUS(status);
 }
-
+*/
 void 	*ft_kill(pid_t pod)
 {	
 	kill(pod, 130);
@@ -68,17 +68,17 @@ void	ft_exec_path(t_com *comm)
 	if (!(pod = fork()))
 	{
 		signal (SIGINT, ft_kill(pod));
-		dup2(global_fd, 1);
+	//	dup2(global_fd, 1);
 		res = execve(comm->words[0], comm->words, comm->path);
 		if (res == -1)
 			ft_notfound(comm);
-		exit(exit_ret);
+	//	exit(exit_ret);
 	}
 	wait(&status);
-	if (exit_ret != 127)
+/*	if (exit_ret != 127)
 		exit_ret = WEXITSTATUS(status);
 	if (status == 2)
-		exit_ret = 130;
+		exit_ret = 130;*/
 }
 
 void	ft_path(t_com * comm)
@@ -103,11 +103,11 @@ void	ft_path(t_com * comm)
 			j++;
 		}
 		tmp_env[j] = NULL;
-	*/	
+		
 		if (!ft_strncmp(comm->words[0], "./", 2))
 			ft_exec_path(comm);
 		else
-			ft_bin_path(comm);
+	*/		ft_bin_path(comm, 0, 0);
 	/*	clean_mem((comm->number_words), NULL, tmp_words);
 		clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
 		write(1, "\n", 1);*/
@@ -117,7 +117,7 @@ int		compare(t_com *comm)
 {
 	if (!ft_strcmp(comm->words[0], "exit"))
 	{	
-		exit_ret = 1;
+		//exit_ret = 1;
 		return (ft_exit(comm));
 	}/*
 	else if (!ft_strcmp(comm->words[0], "echo"))

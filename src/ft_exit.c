@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/06/29 18:35:34 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:09:56 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		ft_exit(t_com *comm)
 	int		i;
 
 	i = 0;
-	if (comm->number_words > 2)
+	(void)comm;
+/*	if (comm->number_words > 2)
 	{
 		write(1, "exit\n", 5);
 		write(1, "minishell: ", 12);
@@ -48,7 +49,7 @@ int		ft_exit(t_com *comm)
 	}
 	else
 	{
-		write(1, "\x1b[31mexit\x1b[0m\n", 14);
+	*/	write(1, "\x1b[31mexit\x1b[0m\n", 14);
 		return (-1);
-	}
+	//}
 }

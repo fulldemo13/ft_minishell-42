@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 11:32:35 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/27 10:12:25 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	launch(t_com *comm)
 	status = -2;
 	while (status == -2)
 	{
-		global_fd = 1;
+		//global_fd = 1;
 		write(1, "\x1b[32mminishell\\> \x1b[0m", 22);
 		line = NULL;
 		get_next_line(&line);
 		if(ft_check_syntax(line))
 		{
-			exit_ret = 128;
+			//exit_ret = 128;
 			free(line);
 		}
 		else
@@ -43,44 +43,34 @@ void	launch(t_com *comm)
 				ft_fill_words(comm->commands[i], comm->words);
 
 				check_quotes(comm);
-
-				//ft_showdouble(comm->words);
 			
-				get_fd(comm);
 				status = compare(comm);
-				if (ft_doublestrlen(comm->words) > 0)
-					clean_mem2(comm->words);
-				if (global_fd != 1)
-					close(global_fd);	
+				
+				clean_mem2(comm->words);
 				i++;
 			}
-		/*	if (comm->number_com > 0)
-				clean_mem(comm->number_com, line, comm->commands);
-		*/
+			clean_mem2(comm->commands);
 		}
+		free(line);
 	}
-	if (status == -1)
-		status = 0;
-	exit(status);
 }
 
 int		main(int argc, char **argv, char **env)
 {
 	t_com	*comm;
-	pid_t	wpid;
 	int		status;
 
 	if (!(comm = (t_com *)malloc(sizeof(t_com))))
 		return(0);
 	comm = ft_comm_initialize(argc, argv, env, comm);
-	signal (SIGINT, SIG_IGN); //(Ctrl + C)
-	if (!(g_pid = fork()))
-	{
+//	signal (SIGINT, SIG_IGN); //(Ctrl + C)
+//	if (!(g_pid = fork()))
+//	{
 		launch(comm);
-		exit(WEXITSTATUS(status));
-	}
-	while ((wpid = wait(&status)) > 0)
-		NULL;
+//		exit(WEXITSTATUS(status));
+//	}
+//	while ((wpid = wait(&status)) > 0)
+//		NULL;
 	clean_mem2(comm->path);
 	clean_mem2(comm->bin_path);
 	free(comm);

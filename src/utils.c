@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 11:22:27 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/28 17:36:13 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ void	clean_mem2(char **commands)
 	while (commands[i] != NULL)
 	{
 		free(commands[i]);
-		//commands[i][0] = '\0';
 		i++;
 	}
 	free(commands);
-	//commands = NULL; 
 }
 
 void	clean_mem(int len, char *line, char **commands)
@@ -70,8 +68,8 @@ void	ft_putstr(char **str)
 	i = 0;
 	while (str[i] != NULL)
 	{
-		write(global_fd, str[i], ft_strlen(str[i]));
-		write(global_fd, "\n", 1);
+//		write(global_fd, str[i], ft_strlen(str[i]));
+//		write(global_fd, "\n", 1);
 		i++;
 	}
 }
@@ -80,11 +78,10 @@ t_com	*ft_comm_initialize(int argc, char **argv, char ** env, t_com *comm)
 {
 	(void)argc;
 	(void)argv;
-//	comm->number_com = 0;
-//	comm->number_path = ft_doublestrlen(env);
+	comm->pipe = 0;
 	comm->path = ft_doublestrdup(env);
 	comm->bin_path = ft_getbinpath(comm);
-	exit_ret = 0;
+//	exit_ret = 0;
 	return (comm);
 }
 

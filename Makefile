@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/11/17 11:01:04 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/11/26 20:14:51 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,17 +25,17 @@ SRC		=	main.c \
 			dolar.c \
 			utils.c \
 			get_next_line.c \
-			ft_echo.c \
 			ft_doublestrdup.c \
+			ft_exit.c \
+			bin_path.c \
+			ft_binpath.c
+
+		#	ft_echo.c \
 			ft_env.c \
 			ft_export.c \
 			ft_unset.c \
 			ft_cd.c \
 			ft_pwd.c \
-			ft_exit.c \
-			fd_redirections.c \
-			bin_path.c \
-
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -46,7 +46,7 @@ all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
-	cd libft ; make;
+	#cd libft ; make;
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
@@ -55,14 +55,14 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJDIR)
-	cd libft ; make clean;
+	#cd libft ; make clean;
 
 fclean: clean
 	rm -f $(NAME)
-	cd libft ; make fclean;
+	#cd libft ; make fclean;
 
 re: fclean all
 
 run: all
 	 ./$(NAME)
-.PHONY:		all clean fclean re run
+.PHONY:		all clean fclean re run obj 

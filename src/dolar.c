@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:01:50 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/17 10:59:22 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:04:56 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*check_dollar(t_com *comm, int i, int j, char *tmp)
 {
 	char	*name;
-	char	*src;
+	char	*src = NULL;
 	char	*aux;
 	int		pos;
 	int		k;
@@ -36,7 +36,7 @@ char	*check_dollar(t_com *comm, int i, int j, char *tmp)
 	}
 	if (!ft_strcmp(name, "?"))
 	{
-		src = ft_itoa(exit_ret);
+	//	src = ft_itoa(exit_ret);
 		aux = ft_strjoin(tmp, src);
 		free(tmp);
 		tmp = aux;
