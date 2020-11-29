@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/28 17:36:13 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/28 18:44:42 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_com	*ft_comm_initialize(int argc, char **argv, char ** env, t_com *comm)
 {
 	(void)argc;
 	(void)argv;
-	comm->pipe = 0;
+	comm->pipe = -1;
 	comm->path = ft_doublestrdup(env);
 	comm->bin_path = ft_getbinpath(comm);
 //	exit_ret = 0;

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/28 17:37:40 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/29 15:02:28 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include "libft.h"
+
+# define MAX_LEN 4096
 /*
 int		exit_ret;
 int		global_fd;
@@ -33,11 +35,11 @@ typedef struct	s_com
 //	int		number_words;
 //	int		number_path;
 	int		number_bin_path;
-	int 	fd[2];
 	char	**commands;
 	char	**words;
 	char	**path;
 	char	**bin_path;
+	int 	fd[MAX_LEN][2];
 	int		pipe;
 }				t_com;
 

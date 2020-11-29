@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/28 18:25:05 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:46:49 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,95 +42,112 @@ char **ft_to_execute(t_com *comm, int i, int j)
 	return (tmp);
 }
 
+void ft_exec_comm(t_com *comm, char **tmp)
+{
+	int		i;
+	char	*aux;
+	int		res;
+
+	i = 0;
+	if ((res = execve(tmp[0], tmp, comm->path)) == -1)
+	{
+		aux = ft_strjoin(comm->bin_path[i], tmp[0]);
+		while ((res = execve(aux, tmp, comm->path) == -1) )
+		{
+			i++;
+			free(aux);
+			aux = ft_strjoin(comm->bin_path[i], tmp[0]);
+		}
+		free(aux);
+	}
+}
+
 
 void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 {
-	char **tmp;
+	char	**tmp;
 	pid_t	pod;
-	int	res;
-	int status;
-	char *aux;
+	int		status;
 	
 	printf("{EXEC STDOUT}\n");
-	tmp = ft_to_execute(comm, i, j);
 
+	tmp = ft_to_execute(comm, i, j);
 	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
-	
+
+	if (comm->pipe >= 1)		//Cierra pipes
+	{
+		close(comm->fd[comm->pipe - 1][0]);
+		close(comm->fd[comm->pipe - 1][1]);
+	}
+
 	if (!(pod = fork()))
 	{
-		if (comm->pipe)
+		if (comm->pipe != -1)
 		{
-			dup2(comm->fd[0], STDIN_FILENO);
-			close(comm->fd[0]);
-			close(comm->fd[1]);
+			dup2(comm->fd[comm->pipe][0], STDIN_FILENO);
+			close(comm->fd[comm->pipe][0]);
+			close(comm->fd[comm->pipe][1]);
 		}
-		i = 0;
-		if ((res = execve(tmp[0], tmp, comm->path)) == -1)
-		{
-			aux = ft_strjoin(comm->bin_path[i], tmp[0]);
-			while ((res = execve(aux, tmp, comm->path) == -1) )
-			{
-				i++;
-				free(aux);
-				aux = ft_strjoin(comm->bin_path[i], tmp[0]);
-			}
-			free(aux);
-		}
+		
+		ft_exec_comm(comm, tmp);
 	}
 //	if (!(WIFEXITED(status)))  //No ha ejecutado nada
 //		ft_notfound(comm);
-	if (comm->pipe)
-	{
-		close(comm->fd[0]);
-		close(comm->fd[1]);
-		comm->pipe = 0;
-	}
-	clean_mem2(tmp);
 	wait(&status);
+	if (comm->pipe != -1)
+	{
+		close(comm->fd[comm->pipe][0]);
+		close(comm->fd[comm->pipe][1]);
+	}
+	comm->pipe = -1;
+	clean_mem2(tmp);
 }
 
-void ft_exec_pipe(t_com *comm, int i, int j)		//funciona super guai
+void ft_exec_pipe(t_com *comm, int i, int j)
 {
 	char **tmp;
 	pid_t pod;
-	int res;
 	int status;
-	char *aux;
 
 	printf("{EXEC PIPE}\n");
+
 	tmp = ft_to_execute(comm, i, j);
-	
 	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
-	if (!comm->pipe)
-		pipe(comm->fd);
-	
+	comm->pipe++;
+	pipe(comm->fd[comm->pipe]);
+
+	if (comm->pipe >= 2)		//close pipes
+	{
+		close(comm->fd[comm->pipe - 2][0]);
+		close(comm->fd[comm->pipe - 2][1]);
+	}
+
 	if (!(pod = fork()))
 	{
-		dup2(comm->fd[1], STDOUT_FILENO);
-		close(comm->fd[0]);
-		close(comm->fd[1]);
-		
-		i = 0;
-		if ((res = execve(tmp[0], tmp, comm->path)) == -1)
+		if (comm->pipe == 0)	//First
 		{
-			aux = ft_strjoin(comm->bin_path[i], tmp[0]);
-			while ((res = execve(aux, tmp, comm->path) == -1) )
-			{
-				i++;
-				free(aux);
-				aux = ft_strjoin(comm->bin_path[i], tmp[0]);
-			}
-			free(aux);
+			close(comm->fd[comm->pipe][0]);
+			dup2(comm->fd[comm->pipe][1], STDOUT_FILENO);
+			close(comm->fd[comm->pipe][1]);
 		}
+		else		//Mid
+		{
+			close(comm->fd[comm->pipe - 1][1]);
+			dup2(comm->fd[comm->pipe - 1][0], STDIN_FILENO);
+			close(comm->fd[comm->pipe - 1][0]);
+			close(comm->fd[comm->pipe][0]);
+			dup2(comm->fd[comm->pipe][1], STDOUT_FILENO);
+			close(comm->fd[comm->pipe][1]);
+		}
+		
+		ft_exec_comm(comm, tmp);
 	}
 //	if (!(WIFEXITED(status)))  //No ha ejecutado nada
-//		ft_notfound(comm);
-		
+//		ft_notfound(comm);		
 	clean_mem2(tmp);
-	comm->pipe = 1;
 	ft_bin_path(comm, i + 1, i + 1);
 	wait(&status);
 }
@@ -150,9 +167,7 @@ void	ft_bin_path(t_com *comm, int i, int j)
 		i++;
 	}
 	if (i == ft_doublestrlen(comm->words))
-		ft_exec_stdout(comm, i, j);
-	//puedo enviar a que cree un hijo con las caracteristicas de |
-	
+		ft_exec_stdout(comm, i, j);	
 }
 /*
 int	main()
