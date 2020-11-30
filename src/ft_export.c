@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 17:36:47 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:48:53 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ void	ft_putquote(char **str, int len)
 	flag = 0;
 	while (len > j)
 	{
-		write(global_fd, "declare -x ", 11);
+		write(1, "declare -x ", 11);
 		i = 0;
 		while (str[j][i] != '\0')
 		{
 			flag = 0;
-			write(global_fd, &str[j][i], 1);
+			write(1, &str[j][i], 1);
 			if (str[j][i] == '=' && !flag)
 			{
-				write(global_fd, "\"", 2);
+				write(1, "\"", 2);
 				flag++;
 			}
 			i++;
 		}
 		j++;
-		write(global_fd, "\"\n", 2);
+		write(1, "\"\n", 2);
 	}
 }
 
@@ -58,26 +58,6 @@ char	**ft_addstr(char **str, char *new)
 	tmp[i] = NULL;
 	return (tmp);
 }
-/*
-char	**ft_addstr(char **path, int number_path, char *str)
-{
-	char	**tmp;
-	int		i;
-
-	i = 0;
-	if (!(tmp = (char **)malloc(sizeof(char*) * (number_path + 1))))
-		return (NULL);
-	while (number_path > i)
-	{
-		tmp[i] = ft_strdup(path[i]);
-		i++;
-	}
-	tmp[number_path] = ft_strdup(str);
-	i = number_path + 1;
-	tmp[i] = NULL;
-	clean_mem(number_path, NULL, path);
-	return (tmp);
-}*/
 
 int			ft_searchname(char *word, t_com * comm)
 {
@@ -91,56 +71,53 @@ int			ft_searchname(char *word, t_com * comm)
 	return (ft_searchpath(comm, tmp));
 }
 
-void		ft_export(t_com *comm)
+void		ft_export(t_com *comm, char **tmp) //tmp es la linea guay de comando
 {
 	int i;
 	int j;
 	int flag;
+	char **aux;
 
 	i = 1;
 	j = 0;
 	flag = 0;
-	if (comm->number_words > i)
+	
+	while (tmp[i] != NULL)
 	{
-		while (comm->number_words > i)
+		flag = ft_searchname(tmp[i], comm);
+		if (flag == -1)
 		{
-			flag = ft_searchname(comm->words[i], comm);
-			if (flag == -1)
+			j = 0;
+			flag = 0;
+			while (tmp[i][j] != '\0')
 			{
-				j = 0;
-				flag = 0;
-				while (comm->words[i][j] != '\0')
+				if (tmp[i][0] == '=')
 				{
-					if (comm->words[i][0] == '=')
-					{
-						write(1, "minishell: export: '", 20);
-						write(1, comm->words[i], ft_strlen(comm->words[i]));
-						write(1, "': not a valid identifier\n", 26);
-						exit_ret = -1;
-						break ;
-					}
-					else if (comm->words[i][j] == '=')
-						flag++;
-					j++;
+					write(1, "minishell: export: '", 20);
+					write(1, tmp[i], ft_strlen(tmp[i]));
+					write(1, "': not a valid identifier\n", 26);
+					break ;
 				}
-				if (flag != 0)
-				{
-					ft_addstr(comm->path, comm->words[i]);
-				//	comm->number_path++;
-				}
+				else if (tmp[i][j] == '=')
+					flag++;
+				j++;
 			}
-			else
+			if (flag != 0)
 			{
-				free(comm->path[flag]);
-				comm->path[flag] = ft_strdup(comm->words[i]);
+				aux = ft_addstr(comm->path, comm->words[i]);
+				clean_mem2(comm->path);
+				comm->path = aux;
 			}
-			i++;
 		}
+		else
+		{
+			free(comm->path[flag]);
+			comm->path[flag] = ft_strdup(tmp[i]);
+		}
+		i++;
 	}
-	else
+
+	if (ft_doublestrlen(tmp) == 1)
 		ft_putquote(comm->path, ft_doublestrlen(comm->path));
-	if (exit_ret == -1)
-		exit_ret = 1;
-	else
-		exit_ret = 0;
+	exit(0);
 }

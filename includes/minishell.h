@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 10:07:50 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:35:39 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ int ft_malloc_words(char *line, char **words);
 int ft_fill_words(char *line, char **words);
 void ft_bin_path(t_com *comm, int i, int j);
 void ft_notfound(char *word);
+void	ft_echo(char **tmp);
+void	ft_cd(t_com *comm);
+void	ft_pwd(void);
+void	ft_env(t_com *comm, char **tmp);
+void	ft_export(t_com *comm, char **tmp);
+
 
 void	ft_showdouble(char **str);
 
@@ -65,11 +71,7 @@ char	*ft_strnjoin(char *s1, char *s2, size_t len);
 char	*ft_strndup(const char *s1, size_t len);
 char	**ft_removestr(char **path, int pos, int len);
 
-void	ft_echo(t_com *comm);
-void	ft_cd(t_com *comm);
-void	ft_pwd(void);
-void	ft_env(t_com *comm);
-void	ft_export(t_com *comm);
+
 void	ft_unset(t_com *comm);
 int		ft_exit(t_com *comm);
 int		ft_doublestrlen(char **s);

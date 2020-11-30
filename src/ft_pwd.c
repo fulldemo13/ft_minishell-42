@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:37:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/02 16:50:27 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:24:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_pwd(void)
 
 	buf = NULL;
 	buf = getcwd(buf, -1);
-	write(global_fd, buf, ft_strlen(buf));
-	write(global_fd, "\n", 1);
+	write(1, buf, ft_strlen(buf));
+	write(1, "\n", 1);
 	free(buf);
 	buf = NULL;
-	exit_ret = 0;
+	exit(0);
 }

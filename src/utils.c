@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 09:44:13 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:30:55 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		is_redirection(char c)
 	if (c == '<')
 		return (1);
 	else if (c == '>')
-		return (2);
-	else if (c == '|')
 		return (3);
+	else if (c == '|')
+		return (2);
 	return (0);
 }
 
@@ -68,8 +68,8 @@ void	ft_putstr(char **str)
 	i = 0;
 	while (str[i] != NULL)
 	{
-//		write(global_fd, str[i], ft_strlen(str[i]));
-//		write(global_fd, "\n", 1);
+		write(1, str[i], ft_strlen(str[i]));
+		write(1, "\n", 1);
 		i++;
 	}
 }

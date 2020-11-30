@@ -6,24 +6,23 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 09:22:03 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:30:57 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:30:40 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_com *comm)
+void	ft_env(t_com *comm, char **tmp)
 {
-	if (comm->number_words > 1)
+	if (ft_doublestrlen(tmp) > 1)
 	{
 		write(1, "env: ", 5);
-		write(1, comm->words[1], ft_strlen(comm->words[1]));
+		write(1, tmp[1], ft_strlen(tmp[1]));
 		write(1, ": No such file or directory\n", 28);
-		exit_ret = 127;
 	}
 	else
 	{
 		ft_putstr(comm->path);
-		exit_ret = 0;
 	}
+	exit(0);
 }

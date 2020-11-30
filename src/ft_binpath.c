@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 11:51:22 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 18:36:30 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,76 @@ void ft_exec_comm(t_com *comm, char **tmp)
 	}
 }
 
-void ft_exec_newfd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo > y >>
+
+void ft_searchexec(t_com * comm, char **tmp)
+{
+	if (!ft_strcmp(tmp[0], "echo"))
+		ft_echo(tmp);
+	else if (!ft_strcmp(tmp[0], "pwd"))
+		ft_pwd();
+	else if (!ft_strcmp(tmp[0], "env"))
+		ft_env(comm, tmp);
+	else if (!ft_strcmp(tmp[0], "export"))
+		ft_export(comm, tmp);/*
+	else if (!ft_strcmp(comm->words[0], "unset"))
+		ft_unset(comm);*/
+	else
+		ft_exec_comm(comm, tmp);
+}
+
+
+
+void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
+{
+	char **tmp;
+	pid_t	pod;
+	int		status;
+	int		fd;
+
+	printf("{EXEC READ FD}\n");
+
+	if ((fd = open(comm->words[i + 1], O_RDONLY)) == -1)
+	{
+		ft_notfound(comm->words[i + 1]);
+		return ;
+	}
+	
+	tmp = ft_to_execute(comm, i, j);
+	clean_mem2(comm->bin_path);
+	comm->bin_path = ft_getbinpath(comm);
+
+
+	if (comm->pipe >= 1)		//Cierra pipes
+	{
+		close(comm->fd[comm->pipe - 1][0]);
+		close(comm->fd[comm->pipe - 1][1]);
+	}
+
+	if (!(pod = fork()))
+	{	
+		dup2(fd, STDIN_FILENO);	//le decimos que la entrada sea el archivo
+		if (comm->pipe != -1)
+		{
+			dup2(comm->fd[comm->pipe][1], STDOUT_FILENO);
+			close(comm->fd[comm->pipe][0]);
+			close(comm->fd[comm->pipe][1]);
+		}
+		
+		ft_exec_comm(comm, tmp);
+	}
+	wait(&status);
+	if (comm->pipe != -1)
+	{
+		close(comm->fd[comm->pipe][0]);
+		close(comm->fd[comm->pipe][1]);
+	}
+	comm->pipe = -1;
+	close(fd);
+
+	clean_mem2(tmp);
+}
+
+void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo > y >>
 {
 	//j es la posición siguiente a la última redireccíon
 	//i es la posicion de la redirección actual
@@ -70,7 +139,7 @@ void ft_exec_newfd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archiv
 	int		status;
 	int		fd;
 	
-	printf("{EXEC FD}\n");
+	printf("{EXEC WRITE FD}\n");
 
 	tmp = ft_to_execute(comm, i, j);
 
@@ -78,9 +147,11 @@ void ft_exec_newfd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archiv
 	comm->bin_path = ft_getbinpath(comm);
 
 	if (!ft_strcmp(comm->words[i], ">"))
-		fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777)) == -1)
+			ft_notfound(comm->words[i + 1]);
 	if (!ft_strcmp(comm->words[i], ">>"))
-		fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_APPEND , 0777);
+		if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_APPEND , 0777)) == -1)
+			ft_notfound(comm->words[i + 1]);
 
 	if (comm->pipe >= 1)		//Cierra pipes
 	{
@@ -138,8 +209,8 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 			close(comm->fd[comm->pipe][0]);
 			close(comm->fd[comm->pipe][1]);
 		}
-		
-		ft_exec_comm(comm, tmp);
+		//CAMBIOOOOOOO
+		ft_searchexec(comm, tmp);
 	}
 	wait(&status);
 	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
@@ -216,7 +287,12 @@ void	ft_bin_path(t_com *comm, int i, int j)
 		}
 		if (!ft_strcmp(comm->words[i], ">") || !ft_strcmp(comm->words[i], ">>"))
 		{
-			ft_exec_newfd(comm, i, j);
+			ft_write_fd(comm, i, j);
+			return;
+		}
+		if (!ft_strcmp(comm->words[i], "<"))
+		{
+			ft_read_fd(comm, i, j);
 			return;
 		}
 		i++;

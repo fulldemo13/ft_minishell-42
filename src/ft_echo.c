@@ -6,30 +6,32 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 10:42:06 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/03/02 18:23:22 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:56:04 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_echo(t_com *comm)
+void		ft_echo(char **tmp)
 {
 	int i;
 	int	ret;
 
 	ret = 0;
 	i = 1;
-	if (comm->number_words > i)
-		if ((ret = ft_strcmp(comm->words[i], "-n")) == 0)
+	if (tmp[i] != NULL)
+		if ((ret = ft_strcmp(tmp[i], "-n")) == 0)
 			i++;
-	while ((comm->number_words > i))
+	while ((tmp[i] != NULL))
 	{
-		write(global_fd, comm->words[i], ft_strlen(comm->words[i]));
+		write(1, tmp[i], ft_strlen(tmp[i]));
 		i++;
-		if (comm->number_words > i)
-				write(global_fd, " ", 1);
+		if (ft_doublestrlen(tmp) > i)
+				write(1, " ", 1);
 	}
+	if (ft_doublestrlen(tmp) == 1)
+		write(1, "\n", 1);
 	if (ret)
-		write(global_fd, "\n", 1);
-	exit_ret = 0;
+		write(1, "\n", 1);
+	exit(0);
 }

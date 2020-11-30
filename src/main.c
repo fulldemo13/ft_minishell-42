@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/27 10:12:25 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:13:59 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,10 @@ void	launch(t_com *comm)
 	status = -2;
 	while (status == -2)
 	{
-		//global_fd = 1;
 		write(1, "\x1b[32mminishell\\> \x1b[0m", 22);
 		line = NULL;
 		get_next_line(&line);
-		if(ft_check_syntax(line))
-		{
-			//exit_ret = 128;
-			free(line);
-		}
-		else
+		if(!ft_check_syntax(line))
 		{	
 			comm->commands = ft_split(line, ';');					//take commands
 			

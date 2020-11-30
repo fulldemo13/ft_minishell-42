@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:12:16 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:03:36 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,33 @@ int		ft_quotes(char *line)
 	return (1);
 }
 
+int		ft_redirections(char *line)
+{
+	int i;
+	int res;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if ((res = is_redirection(line[i])))
+		{
+			if (res != 3 && is_redirection(line[i + 1]))
+				return (i);
+			else 
+			{
+				if (line[i] != '\0')
+				{	i++;
+					if ((is_redirection(line[i]) != 0 && is_redirection(line[i]) != 3)
+					|| is_redirection(line[i + 1]))
+						return (i);	
+				}
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		ft_check_syntax(char *line)
 {
 	if(!ft_quotes(line))
@@ -86,6 +113,13 @@ int		ft_check_syntax(char *line)
 	else if(ft_semicolon(line) == -1)
 	{
 		write(1, "minishell: syntax error near unexpected token ';'\n", 50);
+		return (1);
+	}
+	else if(ft_redirections(line))
+	{
+		write(1, "minishell: syntax error near unexpected token '", 47);
+		write(1, &line[ft_redirections(line)], 1);
+		write(1, "'\n", 2);
 		return (1);
 	}
 	else
