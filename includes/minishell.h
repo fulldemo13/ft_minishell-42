@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/29 15:02:28 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 10:07:50 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int ft_divisor(char *line);
 int ft_malloc_words(char *line, char **words);
 int ft_fill_words(char *line, char **words);
 void ft_bin_path(t_com *comm, int i, int j);
-void ft_notfound(t_com *comm);
+void ft_notfound(char *word);
 
 void	ft_showdouble(char **str);
 

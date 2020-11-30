@@ -6,17 +6,17 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/27 09:56:19 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/11/30 10:10:06 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_notfound(t_com *comm)
+void	ft_notfound(char *word)
 {
 		write(1, "minishell: ", 12);
-		write(1, comm->words[0], ft_strlen(comm->words[0]));
-		write(1, ": command not found\n", 20);
+		write(1, word, ft_strlen(word));
+		write(1, ": error\n", 8);
 		//exit_ret = 127;
 }
 /*
@@ -71,7 +71,7 @@ void	ft_exec_path(t_com *comm)
 	//	dup2(global_fd, 1);
 		res = execve(comm->words[0], comm->words, comm->path);
 		if (res == -1)
-			ft_notfound(comm);
+			ft_notfound(comm->words[0]);
 	//	exit(exit_ret);
 	}
 	wait(&status);
