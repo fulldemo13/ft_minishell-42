@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 09:27:37 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:08:45 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		ft_searchpath(t_com *comm, char *words)
 		}
 		i++;
 	}
-	free(words);
 	return (-1);
 }
 

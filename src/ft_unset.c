@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:55:03 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:24:47 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_unset(t_com *comm)
 	char **tmp;
 
 	i = 1;
-	while (ft_doublestrlen(comm->words) > i)
+	while (comm->words[i] != NULL)
 	{
 		if (ft_strchr(comm->words[i], '='))
 		{
@@ -56,7 +56,7 @@ void	ft_unset(t_com *comm)
 			if (pos != -1)
 			{
 				tmp = ft_removestr(comm->path, pos, ft_doublestrlen(comm->path));
-				clean_mem2(comm->path);
+				clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
 				comm->path = tmp;
 			}
 		}

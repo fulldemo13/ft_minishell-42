@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:55:17 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:25:47 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,7 @@ void	ft_path(t_com * comm)
 int		compare(t_com *comm)
 {
 	if (!ft_strcmp(comm->words[0], "exit"))
-	{	
-		//exit_ret = 1;
 		return (ft_exit(comm));
-	}
 	else if (!ft_strcmp(comm->words[0], "cd"))
 		ft_cd(comm);
 	else if (!ft_strcmp(comm->words[0], "unset"))

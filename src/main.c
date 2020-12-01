@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 17:13:59 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:36:18 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	launch(t_com *comm)
 				check_quotes(comm);
 			
 				status = compare(comm);
-				
 				clean_mem2(comm->words);
 				i++;
 			}
@@ -67,7 +66,8 @@ int		main(int argc, char **argv, char **env)
 //		NULL;
 	clean_mem2(comm->path);
 	clean_mem2(comm->bin_path);
-	free(comm);
+	if (comm)
+		free(comm);
 
 	system("leaks -q minishell");
 	

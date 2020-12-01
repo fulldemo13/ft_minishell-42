@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:15:32 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	**ft_removestr(char **path, int pos, int len);
 
 
 int		ft_searchpath(t_com *comm, char *words);
+
 t_com	*ft_comm_initialize(int argc, char **argv, char **env, t_com *comm);
 char	**ft_getbinpath(t_com *comm);
 

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:02:15 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:05:55 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char **ft_to_execute(t_com *comm, int i, int j)
 		k++;
 	}
 	tmp[k] = NULL;
-
-	ft_showdouble(tmp);
+	
+//	ft_showdouble(tmp);
 
 	return (tmp);
 }
@@ -71,9 +71,7 @@ void ft_searchexec(t_com * comm, char **tmp)
 	else if (!ft_strcmp(tmp[0], "env"))
 		ft_env(comm, tmp);
 	else if (!ft_strcmp(tmp[0], "export"))
-		ft_export_child(comm, tmp);/*
-	else if (!ft_strcmp(comm->words[0], "unset"))
-		ft_unset(comm);*/
+		ft_export_child(comm, tmp);
 	else
 		ft_exec_comm(comm, tmp);
 }
@@ -87,7 +85,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 	int		status;
 	int		fd;
 
-	printf("{EXEC READ FD}\n");
+	//printf("{EXEC READ FD}\n");
 
 	if ((fd = open(comm->words[i + 1], O_RDONLY)) == -1)
 	{
@@ -138,7 +136,7 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 	int		status;
 	int		fd;
 	
-	printf("{EXEC WRITE FD}\n");
+	//printf("{EXEC WRITE FD}\n");
 
 	tmp = ft_to_execute(comm, i, j);
 
@@ -188,7 +186,7 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 	pid_t	pod;
 	int		status;
 	
-	printf("{EXEC STDOUT}\n");
+	//printf("{EXEC STDOUT}\n");
 
 	tmp = ft_to_execute(comm, i, j);
 	clean_mem2(comm->bin_path);
@@ -213,13 +211,13 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 
 	wait(&status);
 
+	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
+		ft_notfound(tmp[0]);
+	
 	if (!ft_strcmp(tmp[0], "export"))
 	{
 		ft_export_parent(comm, tmp);
 	}
-
-	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
-		ft_notfound(tmp[0]);
 		
 	if (comm->pipe != -1)
 	{
@@ -236,7 +234,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 	pid_t pod;
 	int status;
 
-	printf("{EXEC PIPE}\n");
+	//printf("{EXEC PIPE}\n");
 
 	tmp = ft_to_execute(comm, i, j);
 	clean_mem2(comm->bin_path);

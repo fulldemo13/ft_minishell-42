@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 10:06:18 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,14 @@ int			ft_searchname(char *word, t_com * comm)
 	char	*tmp;
 
 	i = 0;
+	if (!ft_strchr(word, '='))
+		return (-1);
 	while (word[i] != '=')
 		i++;
 	tmp = ft_strndup(word, i);
-	return (ft_searchpath(comm, tmp));
+	i = ft_searchpath(comm, tmp);
+	free(tmp);
+	return (i);
 }
 
 //hijo solamente muestra cuando export esta solo
@@ -83,38 +87,32 @@ void		ft_export_child(t_com *comm, char **tmp)
 void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comando
 {
 	int i;
-	int j;
 	int flag;
 	char **aux;
 
 	i = 1;
-	j = 0;
 	flag = 0;
 	
 	while (tmp[i] != NULL)
 	{
 		flag = ft_searchname(tmp[i], comm);
+		
 		if (flag == -1)
 		{
-			j = 0;
 			flag = 0;
-			while (tmp[i][j] != '\0')
+			if (!ft_strchr(tmp[i], '='))
 			{
-				if (tmp[i][0] == '=')
-				{
-					write(1, "minishell: export: '", 20);
-					write(1, tmp[i], ft_strlen(tmp[i]));
-					write(1, "': not a valid identifier\n", 26);
-					break ;
-				}
-				else if (tmp[i][j] == '=')
-					flag++;
-				j++;
+				write(1, "minishell: export: '", 20);
+				write(1, tmp[i], ft_strlen(tmp[i]));
+				write(1, "': not a valid identifier\n", 26);
 			}
+			else
+				flag++;
+			
 			if (flag != 0)
 			{
-				aux = ft_addstr(comm->path, comm->words[i]);
-				clean_mem2(comm->path);
+				aux = ft_addstr(comm->path, tmp[i]);
+				clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
 				comm->path = aux;
 			}
 		}

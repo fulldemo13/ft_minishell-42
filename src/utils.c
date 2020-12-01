@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 18:30:55 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:15:17 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ void	clean_mem2(char **commands)
 	while (commands[i] != NULL)
 	{
 		free(commands[i]);
+		commands[i] = NULL;
 		i++;
 	}
-	free(commands);
+	if (commands)
+		free(commands);
+	commands = NULL;
 }
 
 void	clean_mem(int len, char *line, char **commands)
