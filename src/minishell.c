@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 18:14:20 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 10:55:17 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,9 @@ int		compare(t_com *comm)
 		return (ft_exit(comm));
 	}
 	else if (!ft_strcmp(comm->words[0], "cd"))
-		ft_cd(comm);/*
-	else if (!ft_strcmp(comm->words[0], "env"))
-		ft_env(comm);
-	else if (!ft_strcmp(comm->words[0], "export"))
-		ft_export(comm);
+		ft_cd(comm);
 	else if (!ft_strcmp(comm->words[0], "unset"))
-		ft_unset(comm);*/
+		ft_unset(comm);
 	else
 		ft_path(comm);
 	return (-2);

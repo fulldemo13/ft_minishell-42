@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 18:48:53 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 10:06:18 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,16 @@ int			ft_searchname(char *word, t_com * comm)
 	return (ft_searchpath(comm, tmp));
 }
 
-void		ft_export(t_com *comm, char **tmp) //tmp es la linea guay de comando
+//hijo solamente muestra cuando export esta solo
+void		ft_export_child(t_com *comm, char **tmp)
+{	
+	if (ft_doublestrlen(tmp) == 1)
+		ft_putquote(comm->path, ft_doublestrlen(comm->path));
+	exit(0);
+}
+
+
+void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comando
 {
 	int i;
 	int j;
@@ -116,8 +125,4 @@ void		ft_export(t_com *comm, char **tmp) //tmp es la linea guay de comando
 		}
 		i++;
 	}
-
-	if (ft_doublestrlen(tmp) == 1)
-		ft_putquote(comm->path, ft_doublestrlen(comm->path));
-	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 18:36:30 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 10:02:15 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void ft_searchexec(t_com * comm, char **tmp)
 	else if (!ft_strcmp(tmp[0], "env"))
 		ft_env(comm, tmp);
 	else if (!ft_strcmp(tmp[0], "export"))
-		ft_export(comm, tmp);/*
+		ft_export_child(comm, tmp);/*
 	else if (!ft_strcmp(comm->words[0], "unset"))
 		ft_unset(comm);*/
 	else
@@ -99,7 +99,6 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
-
 	if (comm->pipe >= 1)		//Cierra pipes
 	{
 		close(comm->fd[comm->pipe - 1][0]);
@@ -116,7 +115,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_exec_comm(comm, tmp);
+		ft_searchexec(comm, tmp);
 	}
 	wait(&status);
 	if (comm->pipe != -1)
@@ -170,7 +169,7 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_exec_comm(comm, tmp);
+		ft_searchexec(comm, tmp);
 	}
 	wait(&status);
 	if (comm->pipe != -1)
@@ -209,10 +208,16 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 			close(comm->fd[comm->pipe][0]);
 			close(comm->fd[comm->pipe][1]);
 		}
-		//CAMBIOOOOOOO
 		ft_searchexec(comm, tmp);
 	}
+
 	wait(&status);
+
+	if (!ft_strcmp(tmp[0], "export"))
+	{
+		ft_export_parent(comm, tmp);
+	}
+
 	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
 		ft_notfound(tmp[0]);
 		
@@ -264,7 +269,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_exec_comm(comm, tmp);
+		ft_searchexec(comm, tmp);
 	}
 //	if (!(WIFEXITED(status)))  //No ha ejecutado nada
 //		ft_notfound(comm);		

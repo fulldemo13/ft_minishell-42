@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/11/30 18:35:41 by fulldemo         ###   ########.fr        #
+#    Updated: 2020/12/01 10:13:13 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ SRC		=	main.c \
 			ft_pwd.c \
 			ft_env.c \
 			ft_export.c \
+			ft_unset.c \
 			ft_echo.c 
-		#	ft_unset.c \
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

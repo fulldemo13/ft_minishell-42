@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 11:37:54 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 10:55:03 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_removestr(char **path, int pos, int len)
 	j = 0;
 	if (!(tmp = (char **)malloc(sizeof(char*) * (len - 1))))
 		return (NULL);
-	while (len > i)
+	while (path[i] != NULL)
 	{
 		if (i != pos)
 		{
@@ -31,7 +31,7 @@ char	**ft_removestr(char **path, int pos, int len)
 		}
 		i++;
 	}
-	clean_mem(len, NULL, path);
+	tmp[j] = NULL;
 	return(tmp);
 }
 
@@ -39,30 +39,27 @@ void	ft_unset(t_com *comm)
 {
 	int	i;
 	int	pos;
+	char **tmp;
 
 	i = 1;
-	while (comm->number_words > i)
+	while (ft_doublestrlen(comm->words) > i)
 	{
 		if (ft_strchr(comm->words[i], '='))
 		{
 			write(1,"minishell: ",11);
 			write(1, comm->words[i], ft_strlen(comm->words[i]));
 			write(1, ": not a valid identifier\n", 25);
-			exit_ret = -1;
 		}
 		else
 		{
 			pos = ft_searchpath(comm, comm->words[i]);
 			if (pos != -1)
 			{
-				comm->path = ft_removestr(comm->path, pos, ft_doublestrlen(comm->path));
-//				comm->number_path--;
+				tmp = ft_removestr(comm->path, pos, ft_doublestrlen(comm->path));
+				clean_mem2(comm->path);
+				comm->path = tmp;
 			}
 		}
 		i++;
 	}
-	if (exit_ret == -1)
-		exit_ret = 1;
-	else
-		exit_ret = 0;
 }
