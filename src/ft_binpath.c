@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:05:55 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/01 19:16:25 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,30 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 	
 	//printf("{EXEC WRITE FD}\n");
 
+	fd = -1;
 	tmp = ft_to_execute(comm, i, j);
 
 	clean_mem2(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
-	if (!ft_strcmp(comm->words[i], ">"))
-		if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777)) == -1)
-			ft_notfound(comm->words[i + 1]);
-	if (!ft_strcmp(comm->words[i], ">>"))
-		if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_APPEND , 0777)) == -1)
-			ft_notfound(comm->words[i + 1]);
+	while (comm->words[i + 1] != NULL)			//Abre multiples archivos
+	{	
+		if (!ft_strcmp(comm->words[i], ">"))
+		{
+			if (fd != -1)
+				close(fd);
+			if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777)) == -1)
+				ft_notfound(comm->words[i + 1]);
+		}
+		if (!ft_strcmp(comm->words[i], ">>"))
+		{
+			if (fd != -1)
+				close(fd);
+			if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_APPEND , 0777)) == -1)
+				ft_notfound(comm->words[i + 1]);
+		}
+		i++;
+	}
 
 	if (comm->pipe >= 1)		//Cierra pipes
 	{

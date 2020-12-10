@@ -6,13 +6,13 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:24:47 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/10 10:58:58 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_removestr(char **path, int pos, int len)
+char	**ft_removestr(char **path, int pos)
 {
 	int		i;
 	int		j;
@@ -20,7 +20,7 @@ char	**ft_removestr(char **path, int pos, int len)
 
 	i = 0;
 	j = 0;
-	if (!(tmp = (char **)malloc(sizeof(char*) * (len - 1))))
+	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_doublestrlen(path)))))
 		return (NULL);
 	while (path[i] != NULL)
 	{
@@ -55,8 +55,8 @@ void	ft_unset(t_com *comm)
 			pos = ft_searchpath(comm, comm->words[i]);
 			if (pos != -1)
 			{
-				tmp = ft_removestr(comm->path, pos, ft_doublestrlen(comm->path));
-				clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
+				tmp = ft_removestr(comm->path, pos);
+				clean_mem(ft_doublestrlen(comm->path), comm->path);
 				comm->path = tmp;
 			}
 		}

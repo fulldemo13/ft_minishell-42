@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/10 11:03:34 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,18 @@ char	**ft_addstr(char **str, char *new)
 	int		i;
 
 	i = 0;
-	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_doublestrlen(str) + 1))))
+	if (!(tmp = (char**)malloc(sizeof(char*) * (ft_doublestrlen(str) + 1))))
 		return (0);
 	while (str[i] != NULL)
 	{
-		tmp[i] = ft_strdup(str[i]);
+		if (str[i][0] != '\0')
+			tmp[i] = ft_strdup(str[i]);
 		i++;
 	}
 	tmp[i] = ft_strdup(new);
 	i += 1;
 	tmp[i] = NULL;
+	ft_showdouble(tmp);
 	return (tmp);
 }
 
@@ -91,10 +93,9 @@ void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comand
 	char **aux;
 
 	i = 1;
-	flag = 0;
 	
 	while (tmp[i] != NULL)
-	{
+	{	
 		flag = ft_searchname(tmp[i], comm);
 		
 		if (flag == -1)
@@ -112,7 +113,7 @@ void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comand
 			if (flag != 0)
 			{
 				aux = ft_addstr(comm->path, tmp[i]);
-				clean_mem(ft_doublestrlen(comm->path), NULL, comm->path);
+				clean_mem2(comm->path);
 				comm->path = aux;
 			}
 		}

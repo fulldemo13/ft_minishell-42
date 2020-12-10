@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 17:03:36 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:11:46 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,44 @@ int		ft_redirections(char *line)
 	{
 		if ((res = is_redirection(line[i])))
 		{
-			if (res != 3 && is_redirection(line[i + 1]))
-				return (i);
+			if (res != 3 && (is_redirection(line[i + 1]) || line[i + 1] == '\0' || is_space(line[i + 1])))
+			{
+				i++;
+				while (is_space(line[i]))
+					i++;
+				if ((is_redirection(line[i]) || line[i] == '\0'))
+					return (i);
+			}
 			else 
 			{
 				if (line[i] != '\0')
-				{	i++;
-					if ((is_redirection(line[i]) != 0 && is_redirection(line[i]) != 3)
-					|| is_redirection(line[i + 1]))
-						return (i);	
+				{
+					i++;
+					if (is_space(line[i]))
+					{	
+						while (is_space(line[i]))
+							i++;
+						if ((is_redirection(line[i]) || line[i] == '\0'))
+							return (i);
+					}
+					else
+					{
+						if ((is_redirection(line[i]) != 0 && is_redirection(line[i]) != 3)
+							|| is_redirection(line[i + 1]) || line[i] == '\0')
+							return (i);
+						if (is_redirection(line[i]) == 3)
+						{
+							i++;
+							while (is_space(line[i]))
+								i++;
+							if ((is_redirection(line[i]) || line[i] == '\0'))
+								return (i);
+						}
+					}
 				}
 			}
 		}
+		if (line[i] != '\0')
 		i++;
 	}
 	return (0);
@@ -118,7 +144,10 @@ int		ft_check_syntax(char *line)
 	else if(ft_redirections(line))
 	{
 		write(1, "minishell: syntax error near unexpected token '", 47);
-		write(1, &line[ft_redirections(line)], 1);
+		if (line[ft_redirections(line)] != '\0')
+			write(1, &line[ft_redirections(line)], 1);
+		else
+			write(1, "newline", 7);
 		write(1, "'\n", 2);
 		return (1);
 	}

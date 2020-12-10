@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/10 10:26:28 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ pid_t		g_pid;
 */
 typedef struct	s_com
 {
-//	int		number_com;
-//	int		number_words;
-//	int		number_path;
-	int		number_bin_path;
+//	int		number_bin_path;
 	char	**commands;
 	char	**words;
 	char	**path;
@@ -70,14 +67,13 @@ void	ft_showdouble(char **str);
 
 int		get_next_line(char **line);
 int		is_space(char c);
-void	clean_mem(int words, char *line, char **commands);
+void	clean_mem(int words, char **commands);
 void	clean_mem2(char **commands);
 void	ft_putstr(char **str);
 int		ft_semicolon(char *line);
 int		compare(t_com *comm);
 char	*ft_strnjoin(char *s1, char *s2, size_t len);
 char	*ft_strndup(const char *s1, size_t len);
-char	**ft_removestr(char **path, int pos, int len);
 
 
 

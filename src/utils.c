@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:15:17 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:41:28 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	clean_mem2(char **commands)
 	commands = NULL;
 }
 
-void	clean_mem(int len, char *line, char **commands)
+void	clean_mem(int len, char **commands)
 {
 	len--;
 	if (commands)
@@ -60,8 +60,6 @@ void	clean_mem(int len, char *line, char **commands)
 			free(commands);
 			commands = NULL;
 	}
-	if (line)
-		free(line);
 }
 
 void	ft_putstr(char **str)
