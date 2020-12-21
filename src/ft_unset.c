@@ -6,13 +6,13 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/10 10:58:58 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/17 10:59:02 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_removestr(char **path, int pos)
+int ft_removestr(t_com *comm, int pos)
 {
 	int		i;
 	int		j;
@@ -20,26 +20,28 @@ char	**ft_removestr(char **path, int pos)
 
 	i = 0;
 	j = 0;
-	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_doublestrlen(path)))))
-		return (NULL);
-	while (path[i] != NULL)
+	if (!(tmp = (char **)malloc(sizeof(char*) * (ft_doublestrlen(comm->path)))))
+		return (1);
+	while (comm->path[i] != NULL)
 	{
 		if (i != pos)
 		{
-			tmp[j] = ft_strdup(path[i]);
+			tmp[j] = comm->path[i];
 			j++;
 		}
 		i++;
 	}
 	tmp[j] = NULL;
-	return(tmp);
+	free(comm->path[pos]);
+	free(comm->path);
+	comm->path = tmp;
+	return(0);
 }
 
 void	ft_unset(t_com *comm)
 {
 	int	i;
 	int	pos;
-	char **tmp;
 
 	i = 1;
 	while (comm->words[i] != NULL)
@@ -55,9 +57,7 @@ void	ft_unset(t_com *comm)
 			pos = ft_searchpath(comm, comm->words[i]);
 			if (pos != -1)
 			{
-				tmp = ft_removestr(comm->path, pos);
-				clean_mem(ft_doublestrlen(comm->path), comm->path);
-				comm->path = tmp;
+				ft_removestr(comm, pos);
 			}
 		}
 		i++;

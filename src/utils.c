@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/02 10:41:28 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:43:13 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		is_redirection(char c)
 	return (0);
 }
 
-void	clean_mem2(char **commands)
+void	ft_clean_mem(char **commands)
 {
 	int i;
 
@@ -45,21 +45,6 @@ void	clean_mem2(char **commands)
 	if (commands)
 		free(commands);
 	commands = NULL;
-}
-
-void	clean_mem(int len, char **commands)
-{
-	len--;
-	if (commands)
-	{
-			while (len >= 0)
-			{
-				free(commands[len]);
-				len--;
-			}
-			free(commands);
-			commands = NULL;
-	}
 }
 
 void	ft_putstr(char **str)

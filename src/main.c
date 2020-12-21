@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/02 10:44:30 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:41:12 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	launch(t_com *comm)
 	status = -2;
 	while (status == -2)
 	{
-		write(1, "\x1b[32mminishell\\> \x1b[0m", 22);
+		write(1, "\x1b[32mminishell\\>\x1b[0m", 21);
 		line = NULL;
 		get_next_line(&line);
 		if(!ft_check_syntax(line))
@@ -39,10 +39,10 @@ void	launch(t_com *comm)
 				check_quotes(comm);
 			
 				status = compare(comm);
-				clean_mem2(comm->words);
+				ft_clean_mem(comm->words);
 				i++;
 			}
-			clean_mem2(comm->commands);
+			ft_clean_mem(comm->commands);
 		}
 		free(line);
 	}
@@ -64,8 +64,8 @@ int		main(int argc, char **argv, char **env)
 //	}
 //	while ((wpid = wait(&status)) > 0)
 //		NULL;
-	clean_mem2(comm->path);
-	clean_mem2(comm->bin_path);
+	ft_clean_mem(comm->path);
+	ft_clean_mem(comm->bin_path);
 	if (comm)
 		free(comm);
 

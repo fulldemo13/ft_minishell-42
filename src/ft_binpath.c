@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 19:16:25 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:51:42 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 	}
 	
 	tmp = ft_to_execute(comm, i, j);
-	clean_mem2(comm->bin_path);
+	ft_clean_mem(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
 	if (comm->pipe >= 1)		//Cierra pipes
@@ -124,7 +124,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 	comm->pipe = -1;
 	close(fd);
 
-	clean_mem2(tmp);
+	ft_clean_mem(tmp);
 }
 
 void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo > y >>
@@ -141,7 +141,7 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 	fd = -1;
 	tmp = ft_to_execute(comm, i, j);
 
-	clean_mem2(comm->bin_path);
+	ft_clean_mem(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
 	while (comm->words[i + 1] != NULL)			//Abre multiples archivos
@@ -190,7 +190,7 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 	}
 	comm->pipe = -1;
 	close(fd);
-	clean_mem2(tmp);
+	ft_clean_mem(tmp);
 }
 
 void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
@@ -202,7 +202,7 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 	//printf("{EXEC STDOUT}\n");
 
 	tmp = ft_to_execute(comm, i, j);
-	clean_mem2(comm->bin_path);
+	ft_clean_mem(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
 	if (comm->pipe >= 1)		//Cierra pipes
@@ -238,7 +238,7 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 		close(comm->fd[comm->pipe][1]);
 	}
 	comm->pipe = -1;
-	clean_mem2(tmp);
+	ft_clean_mem(tmp);
 }
 
 void ft_exec_pipe(t_com *comm, int i, int j)
@@ -250,7 +250,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 	//printf("{EXEC PIPE}\n");
 
 	tmp = ft_to_execute(comm, i, j);
-	clean_mem2(comm->bin_path);
+	ft_clean_mem(comm->bin_path);
 	comm->bin_path = ft_getbinpath(comm);
 
 	comm->pipe++;
@@ -284,7 +284,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 	}
 //	if (!(WIFEXITED(status)))  //No ha ejecutado nada
 //		ft_notfound(comm);		
-	clean_mem2(tmp);
+	ft_clean_mem(tmp);
 	ft_bin_path(comm, i + 1, i + 1);
 	wait(&status);		//No TOCAR
 }
@@ -316,53 +316,3 @@ void	ft_bin_path(t_com *comm, int i, int j)
 	if (i == ft_doublestrlen(comm->words))
 		ft_exec_stdout(comm, i, j);	
 }
-/*
-int	main()
-{
-	// ls -l | wc > file.txt
-	// | crea un nuevo hijo con un dup para pasar el resultado de uno a otro
-	// redirecciones no crean hijos sino que escriben en el archivo (get_fd)
-	int fd1[2];
-	int fd2;
-	int status;
-	int pid;
-	int read_end = 0;
-	int write_end = 1;
-	//encontramos un | creamos hijo con pipe
-	pipe(fd1);
-	pid = fork();
-	if (pid == 0) //hijo nacido del | con todo abierto por el pipe()
-	{
-		 close(fd1[read_end]);
-		 dup2(fd1[write_end], STDOUT_FILENO);
-		 close(fd1[write_end]);
-		 //ejecutamos comando (ls -l)
-		 execlp("/bin/ls", "ls", "-l", NULL);
-	}
-	else	//el padre que ejecuta el siguiente comando en otro hijo
-	{
-		close(fd1[write_end]); //al cerrar el extremo de excritura el hijo hereda el extremo de lecetura que es el resultado del comado anterior
-		
-		pid = fork();
-		if (pid == 0) //hijo 2 nacido por el >
-		{
-			fd2 = open("file.txt", O_WRONLY | O_CREAT | O_TRUNC);
-			dup2(fd1[read_end], STDIN_FILENO);	//cambia la lectura del input al extrmo del pipe
-			close(fd1[read_end]);
-
-			dup2(fd2, STDOUT_FILENO);	//cambia la escritura del stdout al file descriptor del archivo
-
-			//ejecutar comando (wc)
-			execlp("/usr/bin/wc", "wc", NULL);
-		}
-		else
-		{
-			close(fd1[read_end]);	//cerramos el otro extremo
-		}
-	}
-	//un wait para cada hijo
-	wait(&status);
-	wait(&status);
-
-	return(0);
-}*/

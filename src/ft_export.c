@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/10 11:03:34 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:18:41 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,24 @@ void	ft_putquote(char **str, int len)
 	}
 }
 
-char	**ft_addstr(char **str, char *new)
+int		ft_addstr(t_com *comm, char *new)
 {
 	char	**tmp;
 	int		i;
 
 	i = 0;
-	if (!(tmp = (char**)malloc(sizeof(char*) * (ft_doublestrlen(str) + 1))))
-		return (0);
-	while (str[i] != NULL)
+	if (!(tmp = (char**)malloc(sizeof(char*) * (ft_doublestrlen(comm->path) + 2))))
+		return (1);
+	while (comm->path[i] != NULL)
 	{
-		if (str[i][0] != '\0')
-			tmp[i] = ft_strdup(str[i]);
+		tmp[i] = comm->path[i];
 		i++;
 	}
-	tmp[i] = ft_strdup(new);
-	i += 1;
+	tmp[i++] = ft_strdup(new);
 	tmp[i] = NULL;
-	ft_showdouble(tmp);
-	return (tmp);
+	free(comm->path);
+	comm->path = tmp;
+	return (0);
 }
 
 int			ft_searchname(char *word, t_com * comm)
@@ -90,7 +89,6 @@ void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comand
 {
 	int i;
 	int flag;
-	char **aux;
 
 	i = 1;
 	
@@ -111,11 +109,7 @@ void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comand
 				flag++;
 			
 			if (flag != 0)
-			{
-				aux = ft_addstr(comm->path, tmp[i]);
-				clean_mem2(comm->path);
-				comm->path = aux;
-			}
+				ft_addstr(comm, tmp[i]);
 		}
 		else
 		{
