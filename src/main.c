@@ -6,11 +6,18 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:41:12 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/23 10:32:00 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void sighandler()
+{
+	write(1, "\033[2D\033[0K", 9);
+	write(1, "\n", 1);
+	write(1, "\x1b[32mminishell\\>\x1b[0m", 21);
+}
 
 void	launch(t_com *comm)
 {
@@ -23,8 +30,10 @@ void	launch(t_com *comm)
 	{
 		write(1, "\x1b[32mminishell\\>\x1b[0m", 21);
 		line = NULL;
-		get_next_line(&line);
-		if(!ft_check_syntax(line))
+		signal (SIGINT, sighandler); 			//Ctrl + C
+		if (!get_next_line(&line))				//Ctrl + D
+			status = ft_exit(comm);
+		if(!ft_check_syntax(line) && status == -2)
 		{	
 			comm->commands = ft_split(line, ';');					//take commands
 			
@@ -56,18 +65,10 @@ int		main(int argc, char **argv, char **env)
 	if (!(comm = (t_com *)malloc(sizeof(t_com))))
 		return(0);
 	comm = ft_comm_initialize(argc, argv, env, comm);
-//	signal (SIGINT, SIG_IGN); //(Ctrl + C)
-//	if (!(g_pid = fork()))
-//	{
-		launch(comm);
-//		exit(WEXITSTATUS(status));
-//	}
-//	while ((wpid = wait(&status)) > 0)
-//		NULL;
+	launch(comm);
 	ft_clean_mem(comm->path);
 	ft_clean_mem(comm->bin_path);
-	if (comm)
-		free(comm);
+	free(comm);
 
 	system("leaks -q minishell");
 	

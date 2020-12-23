@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:40:37 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:58:10 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,9 @@
 # include "libft.h"
 
 # define MAX_LEN 4096
-/*
-int		exit_ret;
-int		global_fd;
-pid_t		g_pid;
-*/
+
 typedef struct	s_com
 {
-//	int		number_bin_path;
 	char	**commands;
 	char	**words;
 	char	**path;

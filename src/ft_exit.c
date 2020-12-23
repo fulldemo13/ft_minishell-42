@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/02 10:44:30 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/23 10:15:48 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		ft_exit(t_com *comm)
 	}
 	else
 	{
-	*/	write(1, "\x1b[31mexit\x1b[0m\n", 14);
+	*/	
+		write(1, "\x1b[31mexit\x1b[0m\n", 14);
 		return (-1);
 	//}
 }

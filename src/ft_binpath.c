@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:51:42 by fulldemo         ###   ########.fr       */
+/*   Updated: 2020/12/21 09:57:29 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ char **ft_to_execute(t_com *comm, int i, int j)
 		k++;
 	}
 	tmp[k] = NULL;
-	
-//	ft_showdouble(tmp);
-
 	return (tmp);
 }
 
@@ -281,9 +278,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 		}
 		
 		ft_searchexec(comm, tmp);
-	}
-//	if (!(WIFEXITED(status)))  //No ha ejecutado nada
-//		ft_notfound(comm);		
+	}		
 	ft_clean_mem(tmp);
 	ft_bin_path(comm, i + 1, i + 1);
 	wait(&status);		//No TOCAR
