@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/23 10:32:00 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:30:25 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	launch(t_com *comm)
 			
 			i = 0;
 			while (comm->commands[i] && status == -2)				//run commands 1 by 1
-			{
+			{	
 				if (!(comm->words = (char **)malloc(sizeof(char *) * (ft_divisor(comm->commands[i]) + 1))))
 						exit(status);
 				ft_malloc_words(comm->commands[i], comm->words);
@@ -48,12 +48,15 @@ void	launch(t_com *comm)
 				check_quotes(comm);
 			
 				status = compare(comm);
+				
 				ft_clean_mem(comm->words);
 				i++;
 			}
 			ft_clean_mem(comm->commands);
 		}
 		free(line);
+
+		printf("Exit_ret:%d\n", exit_ret);
 	}
 }
 

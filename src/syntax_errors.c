@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/02 10:11:46 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:22:10 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,16 +129,35 @@ int		ft_redirections(char *line)
 	return (0);
 }
 
+int		ft_allspaces(char *line)
+{
+	int i;
+
+	i = 0;
+
+	while (line[i] != '\0')
+	{
+		if(!is_space(line[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		ft_check_syntax(char *line)
 {
-	if(!ft_quotes(line))
+	if(!ft_allspaces(line))
+		return (1);
+	else if(!ft_quotes(line))
 	{
 		write(1, "minishell: syntax error multiline\n", 34);
+		exit_ret = 42;
 		return (1);
 	}
 	else if(ft_semicolon(line) == -1)
 	{
 		write(1, "minishell: syntax error near unexpected token ';'\n", 50);
+		exit_ret = 258;
 		return (1);
 	}
 	else if(ft_redirections(line))
@@ -149,6 +168,7 @@ int		ft_check_syntax(char *line)
 		else
 			write(1, "newline", 7);
 		write(1, "'\n", 2);
+		exit_ret = 258;
 		return (1);
 	}
 	else

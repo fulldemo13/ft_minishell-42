@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:58:10 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:04:16 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,23 @@ typedef struct	s_com
 	int		pipe;
 }				t_com;
 
-
+int		exit_ret;
 
 
 int ft_divisor(char *line);
 int ft_malloc_words(char *line, char **words);
 int ft_fill_words(char *line, char **words);
 void ft_bin_path(t_com *comm, int i, int j);
-void ft_notfound(char *word);
 
-void	ft_echo(char **tmp);
+void	ft_nosuchfile(char *word);
+void	ft_notfound(char *word, int *fd);
+
+void	ft_echo(char **tmp, int *fd);
 void	ft_cd(t_com *comm);
-void	ft_pwd(void);
-void	ft_env(t_com *comm, char **tmp);
+void	ft_pwd(int *fd);
+void	ft_env(t_com *comm, char **tmp, int *fd);
 void	ft_export_parent(t_com *comm, char **tmp);
-void	ft_export_child(t_com *comm, char **tmp);
+void	ft_export_child(t_com *comm, char **tmp, int *fd);
 void	ft_unset(t_com *comm);
 int		ft_exit(t_com *comm);
 

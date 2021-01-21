@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:57:29 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:19:47 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char **ft_to_execute(t_com *comm, int i, int j)
 	return (tmp);
 }
 
-void ft_exec_comm(t_com *comm, char **tmp)
+void ft_exec_comm(t_com *comm, char **tmp, int *fd)
 {
 	int		i;
 	char	*aux;
@@ -53,24 +53,26 @@ void ft_exec_comm(t_com *comm, char **tmp)
 			i++;
 			free(aux);
 			aux = ft_strjoin(comm->bin_path[i], tmp[0]);
+			if (i == ft_doublestrlen(comm->bin_path) - 1)
+				ft_notfound(comm->words[0], fd);
 		}
 		free(aux);
 	}
 }
 
 
-void ft_searchexec(t_com * comm, char **tmp)
+void ft_searchexec(t_com * comm, char **tmp, int *fd)
 {
 	if (!ft_strcmp(tmp[0], "echo"))
-		ft_echo(tmp);
+		ft_echo(tmp, fd);
 	else if (!ft_strcmp(tmp[0], "pwd"))
-		ft_pwd();
+		ft_pwd(fd);
 	else if (!ft_strcmp(tmp[0], "env"))
-		ft_env(comm, tmp);
+		ft_env(comm, tmp, fd);
 	else if (!ft_strcmp(tmp[0], "export"))
-		ft_export_child(comm, tmp);
+		ft_export_child(comm, tmp, fd);
 	else
-		ft_exec_comm(comm, tmp);
+		ft_exec_comm(comm, tmp, fd);
 }
 
 
@@ -86,7 +88,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 
 	if ((fd = open(comm->words[i + 1], O_RDONLY)) == -1)
 	{
-		ft_notfound(comm->words[i + 1]);
+		ft_nosuchfile(comm->words[i + 1]);
 		return ;
 	}
 	
@@ -110,7 +112,7 @@ void ft_read_fd(t_com *comm, int i, int j) //lee del archivo <
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_searchexec(comm, tmp);
+		ft_searchexec(comm, tmp, NULL);
 	}
 	wait(&status);
 	if (comm->pipe != -1)
@@ -148,14 +150,14 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 			if (fd != -1)
 				close(fd);
 			if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777)) == -1)
-				ft_notfound(comm->words[i + 1]);
+				ft_notfound(comm->words[i + 1], NULL);
 		}
 		if (!ft_strcmp(comm->words[i], ">>"))
 		{
 			if (fd != -1)
 				close(fd);
 			if ((fd = open(comm->words[i + 1], O_WRONLY | O_CREAT | O_APPEND , 0777)) == -1)
-				ft_notfound(comm->words[i + 1]);
+				ft_notfound(comm->words[i + 1], NULL);
 		}
 		i++;
 	}
@@ -177,7 +179,7 @@ void ft_write_fd(t_com *comm, int i, int j)	//Hijo que escribe en nuevo archivo 
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_searchexec(comm, tmp);
+		ft_searchexec(comm, tmp, NULL);
 	}
 	wait(&status);
 	if (comm->pipe != -1)
@@ -195,6 +197,7 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 	char	**tmp;
 	pid_t	pod;
 	int		status;
+	int		efd[2];				//pipe para el $?
 	
 	//printf("{EXEC STDOUT}\n");
 
@@ -208,6 +211,8 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 		close(comm->fd[comm->pipe - 1][1]);
 	}
 
+	pipe(efd);
+
 	if (!(pod = fork()))
 	{
 		if (comm->pipe != -1)
@@ -216,13 +221,20 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 			close(comm->fd[comm->pipe][0]);
 			close(comm->fd[comm->pipe][1]);
 		}
-		ft_searchexec(comm, tmp);
+		ft_searchexec(comm, tmp, efd);
 	}
 
 	wait(&status);
 
+	exit_ret = 0;
+	
 	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
-		ft_notfound(tmp[0]);
+		exit_ret = 1;
+		
+	close(efd[1]);
+	read(efd[0], &exit_ret, sizeof(int));
+	close(efd[0]);
+
 	
 	if (!ft_strcmp(tmp[0], "export"))
 	{
@@ -277,7 +289,7 @@ void ft_exec_pipe(t_com *comm, int i, int j)
 			close(comm->fd[comm->pipe][1]);
 		}
 		
-		ft_searchexec(comm, tmp);
+		ft_searchexec(comm, tmp, NULL);
 	}		
 	ft_clean_mem(tmp);
 	ft_bin_path(comm, i + 1, i + 1);

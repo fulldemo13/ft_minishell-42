@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:57:56 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/30 18:09:35 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 15:45:17 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void		ft_cd(t_com *comm)
 		tmp = aux;
 		chdir(tmp);
 		free(tmp);
+		exit_ret = 0;
 	}
 	else if((chdir(comm->words[1])) == -1)
 	{
 		write(1, "minishell: ", 12);
 		write(1, comm->words[1], ft_strlen(comm->words[1]));
 		write(1, ": No such file or directory\n", 28);
+		exit_ret = 1;
 	}
 }

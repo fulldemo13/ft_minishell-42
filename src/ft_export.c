@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/21 09:18:41 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/21 15:51:03 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,17 @@ int			ft_searchname(char *word, t_com * comm)
 }
 
 //hijo solamente muestra cuando export esta solo
-void		ft_export_child(t_com *comm, char **tmp)
+void		ft_export_child(t_com *comm, char **tmp, int *fd)
 {	
 	if (ft_doublestrlen(tmp) == 1)
 		ft_putquote(comm->path, ft_doublestrlen(comm->path));
+	exit_ret = 0;
+	if (fd)
+	{
+		close(fd[0]);
+		write(fd[1], &exit_ret, sizeof(int));
+		close(fd[1]);
+	}
 	exit(0);
 }
 
@@ -104,6 +111,7 @@ void		ft_export_parent(t_com *comm, char **tmp) //tmp es la linea guay de comand
 				write(1, "minishell: export: '", 20);
 				write(1, tmp[i], ft_strlen(tmp[i]));
 				write(1, "': not a valid identifier\n", 26);
+				exit_ret = 1;
 			}
 			else
 				flag++;
