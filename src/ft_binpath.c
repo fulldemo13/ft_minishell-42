@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/21 16:19:47 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 10:21:45 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void ft_exec_comm(t_com *comm, char **tmp, int *fd)
 	char	*aux;
 	int		res;
 
-	i = 0;
+	i = 0;	
 	if ((res = execve(tmp[0], tmp, comm->path)) == -1)
 	{
 		aux = ft_strjoin(comm->bin_path[i], tmp[0]);
@@ -199,7 +199,7 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 	int		status;
 	int		efd[2];				//pipe para el $?
 	
-	//printf("{EXEC STDOUT}\n");
+//	printf("{EXEC STDOUT}\n");
 
 	tmp = ft_to_execute(comm, i, j);
 	ft_clean_mem(comm->bin_path);
@@ -211,7 +211,8 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 		close(comm->fd[comm->pipe - 1][1]);
 	}
 
-	pipe(efd);
+	if (comm->pipe == -1)
+		pipe(efd);
 
 	if (!(pod = fork()))
 	{
@@ -230,10 +231,13 @@ void ft_exec_stdout(t_com *comm, int i, int j)	//Hijo que escribe en el STDOUT
 	
 	if (!(WIFEXITED(status) && (WEXITSTATUS(status) == 0)))
 		exit_ret = 1;
-		
-	close(efd[1]);
-	read(efd[0], &exit_ret, sizeof(int));
-	close(efd[0]);
+	
+	if (comm->pipe == -1)
+	{
+		close(efd[1]);
+		read(efd[0], &exit_ret, sizeof(int));
+		close(efd[0]);
+	}
 
 	
 	if (!ft_strcmp(tmp[0], "export"))
