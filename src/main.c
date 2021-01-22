@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 09:55:12 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 10:38:29 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void sighandler()
 	write(1, "\x1b[32mminishell\\>\x1b[0m", 21);
 }
 
-void	launch(t_com *comm)
+int		launch(t_com *comm)
 {
 	int		status;
 	char	*line;
@@ -58,6 +58,7 @@ void	launch(t_com *comm)
 
 		printf("Exit_ret:%d\n", exit_ret);
 	}
+	return (status);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -68,12 +69,12 @@ int		main(int argc, char **argv, char **env)
 	if (!(comm = (t_com *)malloc(sizeof(t_com))))
 		return(0);
 	comm = ft_comm_initialize(argc, argv, env, comm);
-	launch(comm);
+	status = launch(comm);
 	ft_clean_mem(comm->path);
 	ft_clean_mem(comm->bin_path);
 	free(comm);
 
 	system("leaks -q minishell");
 	
-	return (WEXITSTATUS(status));
+	return (status);
 }

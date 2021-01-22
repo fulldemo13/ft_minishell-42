@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/23 10:15:48 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 10:36:01 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ int		ft_exit(t_com *comm)
 
 	i = 0;
 	comm->pipe = 42;
-/*	if (comm->number_words > 2)
+	if (ft_doublestrlen(comm->words) > 2)
 	{
-		write(1, "exit\n", 5);
+		write(1, "\x1b[31mexit\x1b[0m\n", 14);
 		write(1, "minishell: ", 12);
 		write(1, comm->words[0], ft_strlen(comm->words[0]));
 		write(1, ": too many commands\n", 20);
+		exit_ret = 1;
 		return (-2);
 	}
-	else if (comm->number_words == 2)
+	else if (ft_doublestrlen(comm->words) == 2)
 	{
 		while (comm->words[1][i] != '\0')
 		{
@@ -49,8 +50,7 @@ int		ft_exit(t_com *comm)
 	}
 	else
 	{
-	*/	
 		write(1, "\x1b[31mexit\x1b[0m\n", 14);
 		return (-1);
-	//}
+	}
 }
