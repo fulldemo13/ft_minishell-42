@@ -6,18 +6,25 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 10:36:01 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:32:01 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+int		ft_sig_exit()
+{
+	write(1, "\x1b[31mexit\x1b[0m\n", 14);
+	return (-1);
+}
 
 int		ft_exit(t_com *comm)
 {
 	int		i;
 
 	i = 0;
-	comm->pipe = 42;
+//	comm->pipe = 42;
 	if (ft_doublestrlen(comm->words) > 2)
 	{
 		write(1, "\x1b[31mexit\x1b[0m\n", 14);

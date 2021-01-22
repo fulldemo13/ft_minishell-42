@@ -6,9 +6,13 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 11:12:18 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:32:04 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+//DESCOMENTAR MAKEFILE PARA EL LIBFT
+
 
 #include "minishell.h"
 
@@ -32,7 +36,7 @@ int		launch(t_com *comm)
 		line = NULL;
 		signal (SIGINT, sighandler); 			//Ctrl + C
 		if (!get_next_line(&line))				//Ctrl + D
-			status = ft_exit(comm);
+			status = ft_sig_exit();
 		if(!ft_check_syntax(line) && status == -2)
 		{	
 			comm->commands = ft_split(line, ';');					//take commands

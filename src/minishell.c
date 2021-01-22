@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/21 16:04:35 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:46:14 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ void	ft_notfound(char *word, int *fd)
 		close(fd[0]);
 		write(fd[1], &exit_ret, sizeof(int));
 		close(fd[1]);
-}
-
-void 	*ft_kill(pid_t pod)
-{	
-	kill(pod, 130);
-	return (NULL);
-}
-
-void	ft_exec_path(t_com *comm)
-{
-	pid_t	pod;
-	int status;
-	int res = 0;
-	
-	if (!(pod = fork()))
-	{
-		signal (SIGINT, ft_kill(pod));
-	//	dup2(global_fd, 1);
-		res = execve(comm->words[0], comm->words, comm->path);
-//		if (res == -1)
-//			ft_notfound(comm->words[0]);
-	//	exit(exit_ret);
-	}
-	wait(&status);
-/*	if (exit_ret != 127)
-		exit_ret = WEXITSTATUS(status);
-	if (status == 2)
-		exit_ret = 130;*/
 }
 
 int		compare(t_com *comm)
