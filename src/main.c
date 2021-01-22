@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 10:38:29 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:12:18 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int		launch(t_com *comm)
 			ft_clean_mem(comm->commands);
 		}
 		free(line);
-
-		printf("Exit_ret:%d\n", exit_ret);
 	}
 	return (status);
 }
