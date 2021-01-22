@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2020/12/01 17:22:04 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/01/22 17:23:44 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFTDIR = ./libft/
 SRC		=	main.c \
 			minishell.c \
 			syntax_errors.c \
-			divisor.c \
+			ft_words.c \
 			dolar.c \
 			utils.c \
 			get_next_line.c \
@@ -34,7 +34,8 @@ SRC		=	main.c \
 			ft_env.c \
 			ft_export.c \
 			ft_unset.c \
-			ft_echo.c 
+			ft_echo.c \
+			ft_divisor.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

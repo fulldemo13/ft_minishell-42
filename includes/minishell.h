@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 11:32:04 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 18:06:03 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@
 
 # define MAX_LEN 4096
 
+typedef struct  s_div
+{
+	int 	i;
+	int 	total;
+	int		flag;
+	int 	f_simple;
+	int 	f_double;
+	int		f_redirection;
+}				t_div;
+
 typedef struct	s_com
 {
 	char	**commands;
@@ -42,6 +52,9 @@ int ft_divisor(char *line);
 int ft_malloc_words(char *line, char **words);
 int ft_fill_words(char *line, char **words);
 void ft_bin_path(t_com *comm, int i, int j);
+
+void	ft_div_init(t_div *div);
+void	ft_divisor_quotes(char *line, t_div *div);
 
 void	ft_nosuchfile(char *word);
 void	ft_notfound(char *word, int *fd);

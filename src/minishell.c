@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 11:46:14 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:29:26 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int		compare(t_com *comm)
 		ft_unset(comm);
 	else
 		ft_bin_path(comm, 0, 0);
-	return (-2);
+	return (-1);
 }

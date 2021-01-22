@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 11:32:01 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:42:33 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		ft_sig_exit()
 {
 	write(1, "\x1b[31mexit\x1b[0m\n", 14);
-	return (-1);
+	return (0);
 }
 
 int		ft_exit(t_com *comm)
@@ -24,7 +24,6 @@ int		ft_exit(t_com *comm)
 	int		i;
 
 	i = 0;
-//	comm->pipe = 42;
 	if (ft_doublestrlen(comm->words) > 2)
 	{
 		write(1, "\x1b[31mexit\x1b[0m\n", 14);
@@ -32,7 +31,7 @@ int		ft_exit(t_com *comm)
 		write(1, comm->words[0], ft_strlen(comm->words[0]));
 		write(1, ": too many commands\n", 20);
 		exit_ret = 1;
-		return (-2);
+		return (-1);
 	}
 	else if (ft_doublestrlen(comm->words) == 2)
 	{
@@ -58,6 +57,6 @@ int		ft_exit(t_com *comm)
 	else
 	{
 		write(1, "\x1b[31mexit\x1b[0m\n", 14);
-		return (-1);
+		return (0);
 	}
 }
