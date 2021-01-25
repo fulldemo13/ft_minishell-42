@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 17:24:11 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:45:45 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ft_run_commands(t_com *comm, int status)
 		if (ft_malloc_words(comm->commands[i], comm->words))
 			return (1);
 		ft_fill_words(comm->commands[i], comm->words);
-		check_quotes(comm);
+		ft_check_quotes_dolar(comm);
 		status = compare(comm);
 		ft_clean_mem(comm->words);
 		i++;

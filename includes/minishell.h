@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 11:01:46 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:45:56 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # include "libft.h"
 
 # define MAX_LEN 4096
+
+typedef struct	s_quo
+{
+	int 	i;
+	int 	j;
+	int		len;
+	char	*tmp;
+	char	*aux;
+}				t_quo;
 
 typedef struct  s_div
 {
@@ -94,7 +103,9 @@ char	**ft_getbinpath(t_com *comm);
 
 int		is_redirection(char c);
 int		ft_quotes(char *line);
-void	check_quotes(t_com *comm);
+void	ft_check_quotes_dolar(t_com *comm);
+char	*check_dollar(t_com *comm, int i, int j, char *tmp);
+char	*check_home(char *word, t_com *comm);
 int		ft_redirections(char *line);
 int		ft_check_syntax(char *line);
 

@@ -6,17 +6,39 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 15:42:33 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:44:43 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int		ft_sig_exit()
+int		ft_sig_exit(int i)
 {
+	i = 0;
 	write(1, "\x1b[31mexit\x1b[0m\n", 14);
 	return (0);
+}
+
+void	ft_prompt_exit(char *line, int mode)
+{
+	write(1, "minishell: ", 12);
+	write(1, "exit: ", 6);
+	if (line)
+		write(1, line, ft_strlen(line));
+	if (mode)
+		write(1, ": numeric argument required\n", 28);
+	else
+		write(1, ": too many commands\n", 20);
+}
+
+int		ft_exit_number(char *line)
+{
+	int i;
+
+	i = ft_atoi(line);
+	while (i >= 256)
+		i -= 256;
+	return (i);
 }
 
 int		ft_exit(t_com *comm)
@@ -24,12 +46,10 @@ int		ft_exit(t_com *comm)
 	int		i;
 
 	i = 0;
+	write(1, "\x1b[31mexit\x1b[0m\n", 14);
 	if (ft_doublestrlen(comm->words) > 2)
 	{
-		write(1, "\x1b[31mexit\x1b[0m\n", 14);
-		write(1, "minishell: ", 12);
-		write(1, comm->words[0], ft_strlen(comm->words[0]));
-		write(1, ": too many commands\n", 20);
+		ft_prompt_exit(NULL, 0);
 		exit_ret = 1;
 		return (-1);
 	}
@@ -39,24 +59,12 @@ int		ft_exit(t_com *comm)
 		{
 			if (!ft_isdigit(comm->words[1][i]))
 			{
-				write(1, "\x1b[31mexit\x1b[0m\n", 14);
-				write(1, "minishell: ", 12);
-				write(1, "exit: ", 6);
-				write(1, comm->words[1], ft_strlen(comm->words[1]));
-				write(1, ": numeric argument required\n", 28);
-				return(255);
+				ft_prompt_exit(comm->words[1], 1);
+				return (255);
 			}
-			i++;	
+			i++;
 		}
-		i = ft_atoi(comm->words[1]);
-		while (i >= 256)
-			i -= 256;
-		write(1, "\x1b[31mexit\x1b[0m\n", 14);
-		return(i);
+		return (ft_exit_number(comm->words[1]));
 	}
-	else
-	{
-		write(1, "\x1b[31mexit\x1b[0m\n", 14);
-		return (0);
-	}
+	return (0);
 }
