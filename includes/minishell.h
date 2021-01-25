@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 18:06:03 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/25 11:01:46 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	**ft_getbinpath(t_com *comm);
 int		is_redirection(char c);
 int		ft_quotes(char *line);
 void	check_quotes(t_com *comm);
+int		ft_redirections(char *line);
 int		ft_check_syntax(char *line);
 
 #endif

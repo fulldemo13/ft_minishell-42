@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2021/01/22 17:23:44 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/01/25 11:00:50 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ LIBFTDIR = ./libft/
 
 SRC		=	main.c \
 			minishell.c \
-			syntax_errors.c \
+			ft_syntax_errors.c \
+			ft_redirections.c \
 			ft_words.c \
 			dolar.c \
 			utils.c \
