@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 16:45:56 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:49:07 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ char	*ft_strndup(const char *s1, size_t len);
 
 
 
+void	ft_read_fd(t_com *comm, int i, int j);
+void	ft_write_fd(t_com *comm, int i, int j);
+void	ft_exec_stdout(t_com *comm, int i, int j);
+void	ft_exec_pipe(t_com *comm, int i, int j);
+void	ft_exec_comm(t_com *comm, char **tmp, int *fd);
+char	**ft_to_execute(t_com *comm, int i, int j);
+void	ft_searchexec(t_com *comm, char **tmp, int *fd);
+void	ft_close_pipes(int* fd);
+void	ft_exec_dup2(int *fd, int i, int j);
+char	**ft_relode_binpath_getexe(t_com *comm, int i, int j);
 
 int		ft_searchpath(t_com *comm, char *words);
 
