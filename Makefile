@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2021/01/25 16:43:29 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/01/26 09:38:14 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC		=	main.c \
 			get_next_line.c \
 			ft_doublestrdup.c \
 			ft_exit.c \
-			bin_path.c \
+			ft_bin_path.c \
 			ft_binpath.c \
 			ft_cd.c \
 			ft_pwd.c \

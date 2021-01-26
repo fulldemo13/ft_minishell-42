@@ -6,17 +6,17 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:54:02 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/11/13 17:21:31 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 09:40:32 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_doublestrlen(char **s)
+int		ft_doublestrlen(char **s)
 {
 	int i;
 
-	i  = 0;
+	i = 0;
 	while (s[i] != NULL)
 		i++;
 	return (i);
@@ -24,7 +24,7 @@ int ft_doublestrlen(char **s)
 
 char	**ft_doublestrdup(char **str)
 {
-	char 	**ret;
+	char	**ret;
 	int		i;
 
 	i = 0;

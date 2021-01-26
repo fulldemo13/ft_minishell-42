@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin_path.c                                         :+:      :+:    :+:   */
+/*   ft_bin_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 09:27:37 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/12/01 18:25:53 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 09:38:03 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ char	**ft_getbinpath(t_com *comm)
 	while (comm->path[pos][i] != '=')
 		i++;
 	i++;
-	bin_path = ft_strdup(comm->path[pos] + i);	//guarda todo el contenido de PATH=
-
-	tmp = ft_split(bin_path, ':');				//añadir / al final del string
+	bin_path = ft_strdup(comm->path[pos] + i);
+	tmp = ft_split(bin_path, ':');
 	free(bin_path);
 	bin_path[0] = '\0';
 	i = 0;
@@ -59,5 +58,5 @@ char	**ft_getbinpath(t_com *comm)
 		tmp[i] = bin_path;
 		i++;
 	}
-	return(tmp);
+	return (tmp);
 }

@@ -6,13 +6,13 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/21 15:54:36 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 10:20:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_removestr(t_com *comm, int pos)
+int		ft_removestr(t_com *comm, int pos)
 {
 	int		i;
 	int		j;
@@ -35,7 +35,7 @@ int ft_removestr(t_com *comm, int pos)
 	free(comm->path[pos]);
 	free(comm->path);
 	comm->path = tmp;
-	return(0);
+	return (0);
 }
 
 void	ft_unset(t_com *comm)
@@ -48,7 +48,7 @@ void	ft_unset(t_com *comm)
 	{
 		if (ft_strchr(comm->words[i], '='))
 		{
-			write(1,"minishell: ",11);
+			write(1,"minishell: ", 11);
 			write(1, comm->words[i], ft_strlen(comm->words[i]));
 			write(1, ": not a valid identifier\n", 25);
 		}

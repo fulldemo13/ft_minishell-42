@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/21 10:56:01 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 10:22:51 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		is_space(char c)
 }
 
 int		is_redirection(char c)
-{	
+{
 	if (c == '<')
 		return (1);
 	else if (c == '>')
@@ -60,7 +60,7 @@ void	ft_putstr(char **str)
 	}
 }
 
-t_com	*ft_comm_initialize(int argc, char **argv, char ** env, t_com *comm)
+t_com	*ft_comm_initialize(int argc, char **argv, char **env, t_com *comm)
 {
 	(void)argc;
 	(void)argv;
@@ -124,7 +124,9 @@ char	*ft_strndup(const char *s1, size_t len)
 
 void	ft_showdouble(char **str)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (str[i] != NULL)
 	{
 		printf("[%s]\n", str[i]);
