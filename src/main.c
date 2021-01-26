@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 17:45:45 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:26:02 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 */
 
 #include "minishell.h"
+
+t_com	*ft_comm_initialize(int argc, char **argv, char **env, t_com *comm)
+{
+	(void)argc;
+	(void)argv;
+	comm->pipe = -1;
+	comm->path = ft_doublestrdup(env);
+	comm->bin_path = ft_getbinpath(comm);
+	exit_ret = 0;
+	return (comm);
+}
 
 void	ft_sighandler(int i)
 {
@@ -81,8 +92,8 @@ int		main(int argc, char **argv, char **env)
 	ft_clean_mem(comm->path);
 	ft_clean_mem(comm->bin_path);
 	free(comm);
-
-	system("leaks -q minishell");
-
 	return (status);
 }
+/*
+**	system("leaks -q minishell");
+*/

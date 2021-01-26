@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 16:43:16 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:55:12 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:33:21 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_doublequote(t_com *comm, t_quo *quo)
 			while (comm->words[quo->i][quo->j] != '\0' &&
 			comm->words[quo->i][quo->j] != '\"' &&
 			comm->words[quo->i][quo->j] != '\'' &&
-			!is_space(comm->words[quo->i][quo->j]) &&
+			!ft_isspace(comm->words[quo->i][quo->j]) &&
 			comm->words[quo->i][quo->j] != '$')
 				quo->j++;
 		}
@@ -65,7 +65,7 @@ void	ft_dollarend(t_com *comm, t_quo *quo)
 		while (comm->words[quo->i][quo->j] != '\0' &&
 		comm->words[quo->i][quo->j] != '\"' &&
 		comm->words[quo->i][quo->j] != '\'' &&
-		!is_space(comm->words[quo->i][quo->j]) &&
+		!ft_isspace(comm->words[quo->i][quo->j]) &&
 		comm->words[quo->i][quo->j] != '$')
 			quo->j++;
 	}

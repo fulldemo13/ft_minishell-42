@@ -6,19 +6,11 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:17:10 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 10:22:51 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:29:46 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		is_space(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r' || c == ' ')
-		return (1);
-	return (0);
-}
 
 int		is_redirection(char c)
 {
@@ -58,17 +50,6 @@ void	ft_putstr(char **str)
 		write(1, "\n", 1);
 		i++;
 	}
-}
-
-t_com	*ft_comm_initialize(int argc, char **argv, char **env, t_com *comm)
-{
-	(void)argc;
-	(void)argv;
-	comm->pipe = -1;
-	comm->path = ft_doublestrdup(env);
-	comm->bin_path = ft_getbinpath(comm);
-	exit_ret = 0;
-	return (comm);
 }
 
 char	*ft_strnjoin(char *s1, char *s2, size_t len)
@@ -120,17 +101,4 @@ char	*ft_strndup(const char *s1, size_t len)
 	}
 	r[i] = '\0';
 	return (r);
-}
-
-void	ft_showdouble(char **str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		printf("[%s]\n", str[i]);
-		i++;
-	}
-	printf("[END]\n");
 }

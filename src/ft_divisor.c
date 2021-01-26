@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:44:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 18:19:01 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:33:46 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	ft_divisor_redirection(char *line, t_div *div)
 		div->f_redirection = 1;
 		div->total++;
 	}
-	if (!is_space(line[div->i]) && div->flag == 0 &&
+	if (!ft_isspace(line[div->i]) && div->flag == 0 &&
 	!is_redirection(line[div->i]))
 	{
 		div->flag = 1;
 		div->f_redirection = 0;
 		div->total++;
 	}
-	if (is_space(line[div->i]) && div->f_double == 0 && div->f_simple == 0)
+	if (ft_isspace(line[div->i]) && div->f_double == 0 && div->f_simple == 0)
 	{
 		div->flag = 0;
 		div->f_redirection = 0;

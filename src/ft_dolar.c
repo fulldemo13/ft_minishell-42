@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:01:50 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 16:47:33 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:33:06 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*check_dollar(t_com *comm, int i, int j, char *tmp)
 	k = j;
 	while (comm->words[i][k] != '\"' && comm->words[i][k] != '\0' &&
 	comm->words[i][k] != '\'' && comm->words[i][k] != '$' &&
-	!is_space(comm->words[i][k]))
+	!ft_isspace(comm->words[i][k]))
 		k++;
 	name = ft_strndup(comm->words[i] + j, k - j);
 	k -= j;

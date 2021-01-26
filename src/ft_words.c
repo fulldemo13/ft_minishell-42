@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:56:51 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/22 18:16:54 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:32:47 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 int		ft_malloc_words_reditection(char *line, char **words, t_div *div)
 {
-	if ((!is_space(line[div->i])) || (div->f_double != 0 || div->f_simple != 0))
+	if ((!ft_isspace(line[div->i])) || (div->f_double != 0 ||
+	div->f_simple != 0))
 	{
 		div->flag = 0;
 		div->f_redirection++;
 	}
-	if (div->f_double == 0 && div->f_simple == 0 && ((is_space(line[div->i]) &&
-	!div->flag) || ((!is_space(line[div->i]) && !is_redirection(line[div->i]))
-	&& (line[div->i + 1] == '\0' || is_redirection(line[div->i + 1]))) ||
-	(is_redirection(line[div->i]) && !is_redirection(line[div->i + 1]))))
+	if (div->f_double == 0 && div->f_simple == 0 &&
+	((ft_isspace(line[div->i]) && !div->flag) || ((!ft_isspace(line[div->i])
+	&& !is_redirection(line[div->i])) && (line[div->i + 1] == '\0' ||
+	is_redirection(line[div->i + 1]))) || (is_redirection(line[div->i]) &&
+	!is_redirection(line[div->i + 1]))))
 	{
 		if (!(words[div->total] = (char *)malloc(sizeof(char) *
 		(div->f_redirection + 1))))
@@ -53,14 +55,15 @@ int		ft_malloc_words(char *line, char **words)
 
 void	ft_fill_words_redirection(char *line, char **words, t_div *div)
 {
-	if ((!is_space(line[div->i])) || (div->f_double != 0 || div->f_simple != 0))
+	if ((!ft_isspace(line[div->i])) || (div->f_double != 0 ||
+	div->f_simple != 0))
 	{
 		div->flag = 0;
 		words[div->total][div->f_redirection] = line[div->i];
 		div->f_redirection++;
 	}
-	if (div->f_double == 0 && div->f_simple == 0 && ((is_space(line[div->i]) &&
-	!div->flag) || ((!is_space(line[div->i]) &&
+	if (div->f_double == 0 && div->f_simple == 0 && ((ft_isspace(line[div->i])
+	&& !div->flag) || ((!ft_isspace(line[div->i]) &&
 	!is_redirection(line[div->i])) && (line[div->i + 1] == '\0' ||
 	is_redirection(line[div->i + 1]))) || (is_redirection(line[div->i]) &&
 	!is_redirection(line[div->i + 1]))))

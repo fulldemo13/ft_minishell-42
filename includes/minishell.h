@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:53:05 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:31:31 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ int		ft_doublestrlen(char **s);
 char	**ft_doublestrdup(char **str);
 
 
-void	ft_showdouble(char **str);
-
 int		get_next_line(char **line);
-int		is_space(char c);
 void	ft_clean_mem(char **commands);
 void	ft_putstr(char **str);
 int		ft_semicolon(char *line);

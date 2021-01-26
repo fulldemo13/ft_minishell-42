@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 11:16:18 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:31:59 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_allspaces(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (!is_space(line[i]))
+		if (!ft_isspace(line[i]))
 			return (1);
 		i++;
 	}
@@ -47,7 +47,7 @@ int		ft_semicolon(char *line)
 			number = -1;
 			break ;
 		}
-		else if (!is_space(line[i]))
+		else if (!ft_isspace(line[i]))
 			flag = 0;
 		i++;
 	}
