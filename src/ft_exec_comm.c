@@ -56,7 +56,7 @@ void	ft_exec_comm(t_com *comm, char **tmp, int *fd)
 	int		i;
 	char	*aux;
 	int		res;
-	
+
 	i = 0;
 	if ((res = execve(tmp[0], tmp, comm->path)) == -1)
 	{

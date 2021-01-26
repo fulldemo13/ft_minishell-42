@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 12:49:07 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:53:05 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ft_pwd(int *fd);
 void	ft_env(t_com *comm, char **tmp, int *fd);
 void	ft_export_parent(t_com *comm, char **tmp);
 void	ft_export_child(t_com *comm, char **tmp, int *fd);
+int		ft_addstr(t_com *comm, char *new);
 void	ft_unset(t_com *comm);
 int		ft_exit(t_com *comm);
 int		ft_sig_exit();

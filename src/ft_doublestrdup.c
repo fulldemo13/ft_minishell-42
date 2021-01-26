@@ -36,5 +36,5 @@ char	**ft_doublestrdup(char **str)
 		i++;
 	}
 	ret[i] = NULL;
-	return(ret);
+	return (ret);
 }

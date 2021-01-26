@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 10:20:38 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:52:32 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,27 @@ int		ft_removestr(t_com *comm, int pos)
 	return (0);
 }
 
+int		ft_addstr(t_com *comm, char *new)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	if (!(tmp = (char**)malloc(sizeof(char*) *
+	(ft_doublestrlen(comm->path) + 2))))
+		return (1);
+	while (comm->path[i] != NULL)
+	{
+		tmp[i] = comm->path[i];
+		i++;
+	}
+	tmp[i++] = ft_strdup(new);
+	tmp[i] = NULL;
+	free(comm->path);
+	comm->path = tmp;
+	return (0);
+}
+
 void	ft_unset(t_com *comm)
 {
 	int	i;
@@ -48,7 +69,7 @@ void	ft_unset(t_com *comm)
 	{
 		if (ft_strchr(comm->words[i], '='))
 		{
-			write(1,"minishell: ", 11);
+			write(1, "minishell: ", 11);
 			write(1, comm->words[i], ft_strlen(comm->words[i]));
 			write(1, ": not a valid identifier\n", 25);
 		}

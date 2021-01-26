@@ -31,7 +31,7 @@ int		ft_semicolon(char *line)
 	int		i;
 	int		number;
 	int		flag;
-	
+
 	i = 0;
 	number = 0;
 	flag = 1;

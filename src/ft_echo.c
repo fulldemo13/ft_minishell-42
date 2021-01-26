@@ -14,7 +14,7 @@
 
 void	ft_echo(char **tmp, int *fd)
 {
-	int i;
+	int	i;
 	int	ret;
 
 	i = 1;
@@ -26,7 +26,7 @@ void	ft_echo(char **tmp, int *fd)
 		write(1, tmp[i], ft_strlen(tmp[i]));
 		i++;
 		if (ft_doublestrlen(tmp) > i)
-				write(1, " ", 1);
+			write(1, " ", 1);
 	}
 	if (ft_doublestrlen(tmp) == 1 || ret)
 		write(1, "\n", 1);

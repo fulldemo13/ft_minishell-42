@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 09:27:37 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 09:38:03 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:43:23 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_searchpath(t_com *comm, char *words)
 		while (comm->path[i][j] != '\0')
 		{
 			if (comm->path[i][j] == '=' && words[j] == '\0')
-				return(i);
+				return (i);
 			else if (comm->path[i][j] != words[j])
 				break ;
 			j++;

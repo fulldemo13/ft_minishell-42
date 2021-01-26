@@ -37,7 +37,7 @@ int		ft_malloc_words_reditection(char *line, char **words, t_div *div)
 int		ft_malloc_words(char *line, char **words)
 {
 	t_div	div;
-	
+
 	ft_div_init(&div);
 	div.flag = 1;
 	(void)words;

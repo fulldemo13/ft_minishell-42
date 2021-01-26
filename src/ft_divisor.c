@@ -31,7 +31,7 @@ void	ft_divisor_quotes(char *line, t_div *div)
 		else
 			div->f_simple = 0;
 	}
-	if	(line[div->i] == '\"' && div->f_simple == 0)
+	if (line[div->i] == '\"' && div->f_simple == 0)
 	{
 		if (!div->f_double)
 			div->f_double++;

@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2021/01/26 10:40:07 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/01/26 15:55:24 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,16 @@ SRC		=	main.c \
 			ft_syntax_errors.c \
 			ft_redirections.c \
 			ft_words.c \
-			ft_check_quotes_dolar.c \
 			ft_dolar.c \
+			ft_dolar_check_quotes.c \
 			utils.c \
 			get_next_line.c \
 			ft_doublestrdup.c \
 			ft_exit.c \
 			ft_bin_path.c \
 			ft_exec_comm.c \
-			ft_binpath.c \
+			ft_exec_read_write.c \
+			ft_exec_stdout_pipe.c \
 			ft_cd.c \
 			ft_pwd.c \
 			ft_env.c \
