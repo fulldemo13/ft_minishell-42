@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 16:31:59 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,19 @@ int		ft_check_syntax(char *line)
 	else if (!ft_quotes(line))
 	{
 		write(1, "minishell: syntax error multiline\n", 34);
-		exit_ret = 42;
+		g_exit_ret = 42;
 		return (1);
 	}
 	else if (ft_semicolon(line) == -1)
 	{
 		write(1, "minishell: syntax error near unexpected token ';'\n", 50);
-		exit_ret = 258;
+		g_exit_ret = 258;
 		return (1);
 	}
 	else if (ft_redirections(line))
 	{
 		ft_redirection_syntax(line);
-		exit_ret = 258;
+		g_exit_ret = 258;
 		return (1);
 	}
 	return (0);

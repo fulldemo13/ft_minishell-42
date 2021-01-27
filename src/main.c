@@ -6,13 +6,9 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 16:26:02 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-**	DESCOMENTAR MAKEFILE PARA EL LIBFT
-*/
 
 #include "minishell.h"
 
@@ -23,7 +19,7 @@ t_com	*ft_comm_initialize(int argc, char **argv, char **env, t_com *comm)
 	comm->pipe = -1;
 	comm->path = ft_doublestrdup(env);
 	comm->bin_path = ft_getbinpath(comm);
-	exit_ret = 0;
+	g_exit_ret = 0;
 	return (comm);
 }
 

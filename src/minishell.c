@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 11:27:33 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_nosuchfile(char *word)
 	write(1, "minishell: ", 12);
 	write(1, word, ft_strlen(word));
 	write(1, ": No such file or directory\n", 28);
-	exit_ret = 1;
+	g_exit_ret = 1;
 }
 
 void	ft_notfound(char *word, int *fd)
@@ -25,9 +25,9 @@ void	ft_notfound(char *word, int *fd)
 	write(1, "minishell: ", 12);
 	write(1, word, ft_strlen(word));
 	write(1, ": command not found\n", 20);
-	exit_ret = 127;
+	g_exit_ret = 127;
 	close(fd[0]);
-	write(fd[1], &exit_ret, sizeof(int));
+	write(fd[1], &g_exit_ret, sizeof(int));
 	close(fd[1]);
 }
 

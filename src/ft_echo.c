@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 10:42:06 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 09:43:36 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_echo(char **tmp, int *fd)
 	}
 	if (ft_doublestrlen(tmp) == 1 || ret)
 		write(1, "\n", 1);
-	exit_ret = 0;
+	g_exit_ret = 0;
 	if (fd)
 	{
 		close(fd[0]);
-		write(fd[1], &exit_ret, sizeof(int));
+		write(fd[1], &g_exit_ret, sizeof(int));
 		close(fd[1]);
 	}
 	exit(0);

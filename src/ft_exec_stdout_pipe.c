@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:55:26 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:44:03 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	ft_exit_ret_stdout(t_com *comm, int i, int j, int *efd)
 {
-	exit_ret = 0;
+	g_exit_ret = 0;
 	if (!(i && (j == 0)))
-		exit_ret = 1;
+		g_exit_ret = 1;
 	if (comm->pipe == -1)
 	{
 		close(efd[1]);
-		read(efd[0], &exit_ret, sizeof(int));
+		read(efd[0], &g_exit_ret, sizeof(int));
 		close(efd[0]);
 	}
 }

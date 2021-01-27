@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 11:57:20 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/25 17:44:43 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_exit(t_com *comm)
 	if (ft_doublestrlen(comm->words) > 2)
 	{
 		ft_prompt_exit(NULL, 0);
-		exit_ret = 1;
+		g_exit_ret = 1;
 		return (-1);
 	}
 	else if (ft_doublestrlen(comm->words) == 2)

@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 15:02:52 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:52:32 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	ft_unset(t_com *comm)
 		}
 		i++;
 	}
-	exit_ret = 0;
+	g_exit_ret = 0;
 }

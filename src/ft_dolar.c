@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:01:50 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 16:33:06 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_exit_dollar(char *tmp)
 	char	*src;
 	char	*aux;
 
-	src = ft_itoa(exit_ret);
+	src = ft_itoa(g_exit_ret);
 	aux = ft_strjoin(tmp, src);
 	free(tmp);
 	tmp = aux;

@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2021/01/26 16:36:22 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/01/27 10:44:58 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
-	#cd libft ; make;
+	cd libft && make
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
@@ -59,11 +59,11 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJDIR)
-	#cd libft ; make clean;
+	cd libft && make clean
 
 fclean: clean
 	rm -f $(NAME)
-	#cd libft ; make fclean;
+	cd libft && make fclean
 
 re: fclean all
 

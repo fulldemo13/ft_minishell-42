@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 09:53:31 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:52:37 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	ft_export_child(t_com *comm, char **tmp, int *fd)
 {
 	if (ft_doublestrlen(tmp) == 1)
 		ft_putquote(comm->path, ft_doublestrlen(comm->path));
-	exit_ret = 0;
+	g_exit_ret = 0;
 	if (fd)
 	{
 		close(fd[0]);
-		write(fd[1], &exit_ret, sizeof(int));
+		write(fd[1], &g_exit_ret, sizeof(int));
 		close(fd[1]);
 	}
 	exit(0);
@@ -77,7 +77,7 @@ int		ft_export_equal(char *tmp)
 		write(1, "minishell: export: '", 20);
 		write(1, tmp, ft_strlen(tmp));
 		write(1, "': not a valid identifier\n", 26);
-		exit_ret = 1;
+		g_exit_ret = 1;
 		return (1);
 	}
 	return (0);
