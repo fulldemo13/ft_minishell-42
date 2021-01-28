@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:20:18 by fulldemo          #+#    #+#             */
-/*   Updated: 2020/02/09 19:24:22 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:12:49 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		get_line(char **mem, char **line, int i)
 	if (!*mem && !i)
 	{
 		*line = ft_strdup("");
+		free(*mem);
 		return (0);
 	}
 	else if ((aux1 = ft_strchr(*mem, '\n')))
@@ -33,6 +34,7 @@ int		get_line(char **mem, char **line, int i)
 	else
 	{
 		*line = ft_strdup(*mem);
+		free(*mem);
 		*mem = NULL;
 		return (0);
 	}
