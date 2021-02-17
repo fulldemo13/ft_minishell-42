@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:44:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 16:33:46 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:05:37 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ void	ft_div_init(t_div *div)
 	div->f_redirection = 0;
 }
 
-void	ft_divisor_quotes(char *line, t_div *div)
+void	ft_divisor_quotes(char c, t_div *div)
 {
-	if (line[div->i] == '\'' && div->f_double == 0)
+	if (c == '\'' && div->f_double == 0)
 	{
 		if (!div->f_simple)
 			div->f_simple++;
 		else
 			div->f_simple = 0;
 	}
-	if (line[div->i] == '\"' && div->f_simple == 0)
+	if (c == '\"' && div->f_simple == 0)
 	{
 		if (!div->f_double)
 			div->f_double++;
@@ -70,7 +70,7 @@ int		ft_divisor(char *line)
 	ft_div_init(&div);
 	while (line[div.i] != '\0')
 	{
-		ft_divisor_quotes(line, &div);
+		ft_divisor_quotes(line[div.i], &div);
 		ft_divisor_redirection(line, &div);
 		div.i++;
 	}

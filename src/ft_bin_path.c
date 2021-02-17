@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 09:27:37 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 15:43:23 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/07 11:12:17 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,10 @@ int		ft_searchpath(t_com *comm, char *words)
 	return (-1);
 }
 
-char	**ft_getbinpath(t_com *comm)
+char	**ft_fill_binpath(char **tmp, char *bin_path)
 {
-	int		pos;
-	int		i;
-	char	*bin_path;
-	char	**tmp;
+	int i;
 
-	i = 0;
-	pos = ft_searchpath(comm, "PATH");
-	while (comm->path[pos][i] != '=')
-		i++;
-	i++;
-	bin_path = ft_strdup(comm->path[pos] + i);
-	tmp = ft_split(bin_path, ':');
-	free(bin_path);
-	bin_path[0] = '\0';
 	i = 0;
 	while (tmp[i] != NULL)
 	{
@@ -59,4 +47,27 @@ char	**ft_getbinpath(t_com *comm)
 		i++;
 	}
 	return (tmp);
+}
+
+char	**ft_getbinpath(t_com *comm)
+{
+	int		pos;
+	int		i;
+	char	*bin_path;
+	char	**tmp;
+
+	i = 0;
+	if ((pos = ft_searchpath(comm, "PATH")) == -1)
+	{
+		ft_notfound(comm->words[0], 0);
+		return (NULL);
+	}
+	while (comm->path[pos][i] != '=')
+		i++;
+	i++;
+	bin_path = ft_strdup(comm->path[pos] + i);
+	tmp = ft_split(bin_path, ':');
+	free(bin_path);
+	bin_path[0] = '\0';
+	return (ft_fill_binpath(tmp, bin_path));
 }

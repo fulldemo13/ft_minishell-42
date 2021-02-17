@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 19:22:54 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/28 09:58:55 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:53:04 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				ft_malloc_words(char *line, char **words);
 int				ft_fill_words(char *line, char **words);
 void			ft_bin_path(t_com *comm, int i, int j);
 void			ft_div_init(t_div *div);
-void			ft_divisor_quotes(char *line, t_div *div);
+void			ft_divisor_quotes(char c, t_div *div);
 void			ft_nosuchfile(char *word);
 void			ft_notfound(char *word, int *fd);
 void			ft_echo(char **tmp, int *fd);
@@ -100,5 +100,6 @@ char			*check_dollar(t_com *comm, int i, int j, char *tmp);
 char			*check_home(char *word, t_com *comm);
 int				ft_redirections(char *line);
 int				ft_check_syntax(char *line);
+char			**ft_split_if(const char *s, char c);
 
 #endif

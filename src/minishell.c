@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:53:33 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/07 10:25:41 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void	ft_notfound(char *word, int *fd)
 	write(1, word, ft_strlen(word));
 	write(1, ": command not found\n", 20);
 	g_exit_ret = 127;
-	close(fd[0]);
-	write(fd[1], &g_exit_ret, sizeof(int));
-	close(fd[1]);
+	if (fd)
+	{
+		close(fd[0]);
+		write(fd[1], &g_exit_ret, sizeof(int));
+		close(fd[1]);
+	}
 }
 
 void	ft_bin_path(t_com *comm, int i, int j)
@@ -58,13 +61,13 @@ void	ft_bin_path(t_com *comm, int i, int j)
 
 void	ft_searchexec(t_com *comm, char **tmp, int *fd)
 {
-	if (!ft_strcmp(tmp[0], "echo"))
+	if (!ft_strcmp(tmp[0], "echo") && comm->bin_path)
 		ft_echo(tmp, fd);
-	else if (!ft_strcmp(tmp[0], "pwd"))
+	else if (!ft_strcmp(tmp[0], "pwd") && comm->bin_path)
 		ft_pwd(fd);
-	else if (!ft_strcmp(tmp[0], "env"))
+	else if (!ft_strcmp(tmp[0], "env") && comm->bin_path)
 		ft_env(comm, tmp, fd);
-	else if (!ft_strcmp(tmp[0], "export"))
+	else if (!ft_strcmp(tmp[0], "export") && comm->bin_path)
 		ft_export_child(comm, tmp, fd);
 	else
 		ft_exec_comm(comm, tmp, fd);
@@ -74,9 +77,9 @@ int		compare(t_com *comm)
 {
 	if (!ft_strcmp(comm->words[0], "exit"))
 		return (ft_exit(comm));
-	else if (!ft_strcmp(comm->words[0], "cd"))
+	else if (!ft_strcmp(comm->words[0], "cd") && comm->bin_path)
 		ft_cd(comm);
-	else if (!ft_strcmp(comm->words[0], "unset"))
+	else if (!ft_strcmp(comm->words[0], "unset") && comm->bin_path)
 		ft_unset(comm);
 	else
 		ft_bin_path(comm, 0, 0);

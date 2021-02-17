@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:56:51 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/26 16:32:47 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:05:15 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		ft_malloc_words(char *line, char **words)
 	(void)words;
 	while (line[div.i] != '\0')
 	{
-		ft_divisor_quotes(line, &div);
+		ft_divisor_quotes(line[div.i], &div);
 		if (ft_malloc_words_reditection(line, words, &div))
 			return (1);
 		div.i++;
@@ -84,7 +84,7 @@ int		ft_fill_words(char *line, char **words)
 	(void)words;
 	while (line[div.i] != '\0')
 	{
-		ft_divisor_quotes(line, &div);
+		ft_divisor_quotes(line[div.i], &div);
 		ft_fill_words_redirection(line, words, &div);
 		div.i++;
 	}

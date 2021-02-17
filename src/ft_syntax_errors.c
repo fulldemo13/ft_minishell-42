@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:08:25 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/27 10:43:38 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:04:43 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,31 @@ int		ft_allspaces(char *line)
 
 int		ft_semicolon(char *line)
 {
-	int		i;
-	int		number;
-	int		flag;
+	t_div	div;
 
-	i = 0;
-	number = 0;
-	flag = 1;
-	while (line[i] != '\0')
+	ft_div_init(&div);
+	div.flag = 1;
+	while (line[div.i] != '\0')
 	{
-		if (line[i] == ';' && flag == 0)
+		ft_divisor_quotes(line[div.i], &div);
+		if (line[div.i] == ';' && div.flag == 0
+		&& !div.f_double && !div.f_simple)
 		{
-			number++;
-			flag++;
+			div.total++;
+			div.flag++;
 		}
-		else if (line[i] == ';' && flag != 0)
+		else if (line[div.i] == ';' && div.flag != 0
+		&& !div.f_double && !div.f_simple)
 		{
-			number = -1;
+			div.total = -1;
 			break ;
 		}
-		else if (!ft_isspace(line[i]))
-			flag = 0;
-		i++;
+		else if (!ft_isspace(line[div.i])
+		&& !div.f_double && !div.f_simple)
+			div.flag = 0;
+		div.i++;
 	}
-	return (number);
+	return (div.total);
 }
 
 int		ft_quotes(char *line)
@@ -61,7 +62,7 @@ int		ft_quotes(char *line)
 	ft_div_init(&div);
 	while (line[div.i] != '\0')
 	{
-		ft_divisor_quotes(line, &div);
+		ft_divisor_quotes(line[div.i], &div);
 		div.i++;
 	}
 	if (div.f_simple)

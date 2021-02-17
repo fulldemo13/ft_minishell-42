@@ -6,7 +6,7 @@
 #    By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/09 19:26:39 by fulldemo          #+#    #+#              #
-#    Updated: 2021/01/28 10:18:52 by fulldemo         ###   ########.fr        #
+#    Updated: 2021/02/15 09:47:20 by fulldemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME	= minishell
 SRCDIR	=	./src
 INCDIR	=	./includes
 OBJDIR	=	./obj
-LIBFT 	= libft
-LIBFTDIR = ./libft/
+LIBFT 	=	libft
+LIBFTDIR =	./libft/
 
 SRC		=	main.c \
 			minishell.c \
@@ -39,7 +39,8 @@ SRC		=	main.c \
 			ft_export.c \
 			ft_unset.c \
 			ft_echo.c \
-			ft_divisor.c
+			ft_divisor.c \
+			ft_split_if.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -50,7 +51,7 @@ all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
-	cd libft && make
+	@make -C libft/
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
@@ -59,14 +60,12 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJDIR)
-	cd libft && make clean
+	@make clean -C libft/
 
 fclean: clean
 	rm -f $(NAME)
-	cd libft && make fclean
+	@make fclean -C libft/
 
 re: fclean all
 
-run: all
-	 ./$(NAME)
-.PHONY:		all clean fclean re run obj 
+.PHONY:		all clean fclean re obj

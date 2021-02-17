@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 16:08:29 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/28 10:14:43 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:01:30 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_launch(t_com *comm)
 			status = ft_sig_exit();
 		if (!ft_check_syntax(line) && status == -1)
 		{
-			comm->commands = ft_split(line, ';');
+			comm->commands = ft_split_if(line, ';');
 			status = ft_run_commands(comm, status);
 			ft_clean_mem(comm->commands);
 		}

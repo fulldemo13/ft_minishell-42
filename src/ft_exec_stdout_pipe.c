@@ -6,7 +6,7 @@
 /*   By: fulldemo <fulldemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:43:39 by fulldemo          #+#    #+#             */
-/*   Updated: 2021/01/27 10:44:03 by fulldemo         ###   ########.fr       */
+/*   Updated: 2021/02/06 15:14:59 by fulldemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_exec_stdout(t_com *comm, int i, int j)
 	int		efd[2];
 
 	tmp = ft_relode_binpath_getexe(comm, i, j);
+	if (!tmp)
+		return ;
 	comm->pipe >= 1 ? ft_close_pipes(comm->fd[comm->pipe - 1]) : 0;
 	comm->pipe == -1 ? pipe(efd) : 0;
 	if (!(pod = fork()))
