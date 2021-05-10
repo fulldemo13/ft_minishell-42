@@ -2,8 +2,8 @@
 100/100
 
 ## Introduction
-The objective of this project is to create a simple shell from scratch..
-Replicating bash or zsh functionalities, using processes and file descriptors.
+The objective of this project is to create a simple shell from scratch.
+Replicating bash functionalities, using processes and file descriptors.
 
 ## Mandatory Part
 Implemented builtins:
@@ -11,7 +11,7 @@ Implemented builtins:
 - **pwd** without any options.
 - **export** without any options.
 - **cd** with only a relative or absolute path.
-- **unser** without any options.
+- **unset** without any options.
 - **env** without any options.
 - **exit** without any options.
 - '**;**' in the command separate commands like in bash.
